@@ -29,11 +29,15 @@
 		</c:forEach>
 	</table>
 	<div>
+		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1">첫</a>
 		<c:if test="${currentPage>1}">
 			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}">이전</a>
 		</c:if> 
-		${currentPage}
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}">다음</a>
+		${currentPage}/${lastPage}
+		<c:if test="${currentPage<lastPage}">
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}">다음</a>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${lastPage}">끝</a>
 	</div>
 </body>
 </html>

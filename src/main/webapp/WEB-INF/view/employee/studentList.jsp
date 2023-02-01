@@ -33,7 +33,10 @@
 			<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage-1}">이전</a>
 		</c:if> 
 		${currentPage}
-		<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage+1}">다음</a>
+		<c:if test="${currentPage<lastPage}">
+			<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage+1}">다음</a>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${lastPage}">끝</a>
 	</div>
 </body>
 </html>
