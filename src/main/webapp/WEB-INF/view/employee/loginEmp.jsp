@@ -7,7 +7,6 @@
 </head>
 <body>
 	<h1>로그인</h1>
-	<h1>사원추가</h1>
 	<form action="${pageContext.request.contextPath}/employee/loginEmp" method="post">
 		<table>
 			<tr>
