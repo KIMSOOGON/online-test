@@ -21,6 +21,22 @@ public class StudentController {
 	@Autowired StudentService studentService;
 	@Autowired IdService idService;
 	
+	// 로그인 폼
+	@GetMapping("/loginStudent")
+	public String loginEmp() { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
+		return "student/loginStudent";
+	}
+	// 로그인 액션
+	@PostMapping("/loginStudent")
+	public String loginEmp(HttpSession session, Student student) { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
+		Student resultStudent = studentService.login(student);
+		if(resultStudent == null) { // 로그인 실패
+			return "redirect:/loginStudent";
+		}
+		session.setAttribute("loginStudent", resultStudent);
+		return "redirect:/Home";
+	}
+		
 	// ====================== 학생 관련 CRUD ========================
 	// 삭제 (학생삭제)
 		@GetMapping("/employee/removeStudent")

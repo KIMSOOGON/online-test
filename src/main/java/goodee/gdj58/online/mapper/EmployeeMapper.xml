@@ -44,8 +44,14 @@
 
 	<!-- 총 사원 수 -->
 	<select id="ttlEmpCnt"
+		parameterType="String"
 		resultType="int">
 		SELECT COUNT(*) FROM employee
+		<where>
+			<if test="searchWord != null || searchWord != ''">
+				emp_name LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 	</select>
 	
 	<!-- 사원목록 -->
@@ -58,6 +64,11 @@
 			, emp_id empId
 			, emp_name empName
 		FROM employee
+		<where> <!-- 검색값이 있을 경우 where태그 추가 -->
+			<if test="searchWord != null || searchWord != ''">
+				emp_name LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 		ORDER BY emp_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

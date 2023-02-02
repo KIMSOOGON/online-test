@@ -10,8 +10,8 @@
 	<!-- 로그인 화면 (로그인 전) -->
 	<c:if test="${loginEmp == null}">
 		<h1>직원로그인</h1>
-		<a href="${pageContext.request.contextPath}/loginTeacher">강사 로그인</a>
-		<a href="${pageContext.request.contextPath}/loginStudent">학생 로그인</a>
+		<a href="${pageContext.request.contextPath}/loginTeacher">강사</a>
+		<a href="${pageContext.request.contextPath}/loginStudent">학생</a>
 		<form action="${pageContext.request.contextPath}/loginEmp" method="post">
 			<table>
 				<tr>

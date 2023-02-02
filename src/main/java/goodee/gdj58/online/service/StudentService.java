@@ -10,11 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.online.mapper.StudentMapper;
 import goodee.gdj58.online.vo.Student;
+import goodee.gdj58.online.vo.Teacher;
 
 @Service
 @Transactional
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
+	
+	// 학생 로그인
+	public Student login(Student student) {
+		return studentMapper.login(student);
+	}
 
 	// ====================== 학생 관련 =========================
 	// 학생삭제

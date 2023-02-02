@@ -92,15 +92,19 @@ public class EmployeeController {
 	@GetMapping("/employee/empList")
 	public String empList(Model model
 							, @RequestParam(value="currentPage", defaultValue="1") int currentPage
-							, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) { 
+							, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+							, @RequestParam(value="searchWord", defaultValue="") String searchWord) { 
 							// int currentPage = request.getParameter("currentPage");
 							// 장점 : 형변환(Integer) 및 if null 처리 할 필요가 없어짐
-		int ttlEmpCnt = employeeService.ttlEmpCnt();
+		log.debug("\\u001B[31m"+"currentPage : "+currentPage);
+		log.debug("\\u001B[31m"+"searchWord : "+searchWord);
+		int ttlEmpCnt = employeeService.ttlEmpCnt(searchWord);
 		int lastPage = (int)Math.ceil((double)ttlEmpCnt / (double)rowPerPage);
-		List<Employee> list = employeeService.getEmployeeList(currentPage, rowPerPage);
+		List<Employee> list = employeeService.getEmployeeList(currentPage, rowPerPage, searchWord);
 		// request.setAttribute("list", list);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("lastPage", lastPage);
 		return "employee/empList";
 	}
