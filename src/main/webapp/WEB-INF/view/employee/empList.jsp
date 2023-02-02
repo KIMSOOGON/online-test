@@ -56,9 +56,9 @@
 	
 	<!-- 페이징 -->
 	<div>
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}">첫</a>
-		<c:if test="${currentPage > 1}">
-			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">◀</a>
+		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23EA</a>
+		<c:if test="${currentPage > 10}">
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${startPage-10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">◀</a>
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 			<c:choose>
@@ -70,10 +70,10 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
-		<c:if test="${currentPage < lastPage}">
-			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">▶</a>
+		<c:if test="${(lastPage-startPage) > 10}">
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${startPage+10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">▶</a>
 		</c:if>
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${lastPage}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">끝</a>
+		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${lastPage}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23E9</a>
 	</div>
 </body>
 </html>
