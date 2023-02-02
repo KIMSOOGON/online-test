@@ -9,16 +9,16 @@
 <body>
 	<!-- 로그인 화면 (로그인 전) -->
 	<c:if test="${loginEmp == null}">
-		<h1>직원로그인</h1>
+		<h1>강사 로그인</h1>
+		<a href="${pageContext.request.contextPath}/loginEmployee">직원 로그인</a>
 		<a href="${pageContext.request.contextPath}/loginTeacher">강사 로그인</a>
-		<a href="${pageContext.request.contextPath}/loginStudent">학생 로그인</a>
-		<form action="${pageContext.request.contextPath}/loginEmp" method="post">
+		<form action="${pageContext.request.contextPath}/loginTeacher" method="post">
 			<table>
 				<tr>
-					<td><input type="text" name="empId" placeholder="id"></td>
+					<td><input type="text" name="teacherId" placeholder="id"></td>
 				</tr>
 				<tr>
-					<td><input type="password" name="empPw" placeholder="password"></td>
+					<td><input type="password" name="teacherPw" placeholder="password"></td>
 				</tr>
 			</table>
 			<button type="submit">로그인</button>

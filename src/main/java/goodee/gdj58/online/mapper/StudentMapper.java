@@ -12,7 +12,7 @@ import goodee.gdj58.online.vo.Teacher;
 public interface StudentMapper {
 	// 학생 CRUD + list
 	int updateStudentPw(Map<String,Object> paramMap);
-	Teacher login(Student student);
+	Student login(Student student);
 	int deleteStudent(int studentNo);
 	int insertStudent(Student student);
 	List<Student> selectStudentList(Map<String, Object> paramMap);

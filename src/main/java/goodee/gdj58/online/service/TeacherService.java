@@ -16,6 +16,11 @@ import goodee.gdj58.online.vo.Teacher;
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
 	
+	// 강사 로그인
+	public Teacher login(Teacher teacher) {
+		return teacherMapper.login(teacher);
+	}
+	
 	// ====================== 강사 관련 =========================
 	// 강사삭제
 	public int removeTeacher(int teacherNo) {

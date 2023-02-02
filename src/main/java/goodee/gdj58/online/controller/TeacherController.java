@@ -21,6 +21,24 @@ public class TeacherController {
 	@Autowired TeacherService teacherService;
 	@Autowired IdService idService;
 	
+	// 강사 홈화면
+	
+	
+	// 강사 로그인
+	@GetMapping("/loginTeacher")
+	public String loginTeacher() {
+		return "teacher/loginTeacher";
+	}
+	@PostMapping("/loginTeacher")
+	public String loginTeacher(HttpSession session, Teacher teacher) {
+		Teacher resultTeacher = teacherService.login(teacher);
+		if(resultTeacher == null) {
+			return "redirect:/loginTeacher";
+		}
+		session.setAttribute("loginTeacher", resultTeacher);
+		return "redirect:/Home";
+	}
+	
 	// ====================== 강사 관련 CRUD ========================
 	// 삭제 (강사삭제)
 	@GetMapping("/employee/removeTeacher")
