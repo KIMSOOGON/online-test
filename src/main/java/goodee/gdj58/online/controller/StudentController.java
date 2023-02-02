@@ -15,7 +15,9 @@ import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.StudentService;
 import goodee.gdj58.online.vo.Employee;
 import goodee.gdj58.online.vo.Student;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class StudentController {
 	@Autowired StudentService studentService;
@@ -75,16 +77,30 @@ public class StudentController {
 		@GetMapping("/employee/studentList")
 		public String studentList(HttpSession session, Model model
 									, @RequestParam(value="currentPage", defaultValue="1") int currentPage
-									, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
-			// 직원만 조회 가능
-			Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-			if(loginEmp == null) {
-				return "redirect:/employee/loginEmp";
+									, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+									, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
+			log.debug("\u001B[31m"+"currentPage : "+currentPage);
+			log.debug("\u001B[31m"+"searchWord : "+searchWord);
+			
+			// 페이징관련
+			int ttlStuCnt = studentService.ttlStuCnt(searchWord);
+			int lastPage = (int)Math.ceil((double)ttlStuCnt / (double)rowPerPage);
+			int pageCnt =10;
+			int startPage = ((currentPage-1)/pageCnt)*pageCnt + 1;
+			int endPage = startPage + pageCnt - 1;
+			if(endPage > lastPage) {
+				endPage = lastPage;
 			}
 			
-			List<Student> list = studentService.getStudentList(currentPage, rowPerPage);
+			List<Student> list = studentService.getStudentList(currentPage, rowPerPage, searchWord);
 			model.addAttribute("list", list);
 			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("rowPerPage", rowPerPage);
+			model.addAttribute("searchWord", searchWord);
+			model.addAttribute("lastPage", lastPage);
+			model.addAttribute("ttlStuCnt", ttlStuCnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
 			return "employee/studentList";
 		}	
 	// ====================== 학생 관련 CRUD ========================

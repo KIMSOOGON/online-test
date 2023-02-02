@@ -34,6 +34,18 @@
 		)
 	</insert>
 	
+	<!-- 총 학생 수 -->
+	<select id="ttlStuCnt"
+		parameterType="String"
+		resultType="int">
+		SELECT COUNT(*) FROM student
+		<where>
+			<if test="searchWord != null || searchWord != ''">
+				student_name LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+	</select>
+	
 	<!-- 학생목록 -->
 	<select id="selectStudentList" 
 		resultType="goodee.gdj58.online.vo.Student"
@@ -44,6 +56,11 @@
 			, student_id studentId
 			, student_name studentName
 		FROM student
+		<where> <!-- 검색값이 있을 경우 where태그 추가 -->
+			<if test="searchWord != null || searchWord != ''">
+				student_name LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 		ORDER BY student_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

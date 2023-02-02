@@ -14,5 +14,6 @@ public interface TeacherMapper {
 	Teacher login(Teacher teacher);
 	int deleteTeacher(int teacherNo);
 	int insertTeacher(Teacher teacher);
+	int ttlTeaCnt(String searchWord);
 	List<Teacher> selectTeacherList(Map<String, Object> paramMap);
 }

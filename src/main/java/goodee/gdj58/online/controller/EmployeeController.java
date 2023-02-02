@@ -96,16 +96,27 @@ public class EmployeeController {
 							, @RequestParam(value="searchWord", defaultValue="") String searchWord) { 
 							// int currentPage = request.getParameter("currentPage");
 							// 장점 : 형변환(Integer) 및 if null 처리 할 필요가 없어짐
-		log.debug("\\u001B[31m"+"currentPage : "+currentPage);
-		log.debug("\\u001B[31m"+"searchWord : "+searchWord);
+		log.debug("\u001B[31m"+"currentPage : "+currentPage);
+		log.debug("\u001B[31m"+"searchWord : "+searchWord);
+		// 페이징관련
 		int ttlEmpCnt = employeeService.ttlEmpCnt(searchWord);
 		int lastPage = (int)Math.ceil((double)ttlEmpCnt / (double)rowPerPage);
+		int pageCnt =10;
+		int startPage = ((currentPage-1)/pageCnt)*pageCnt + 1;
+		int endPage = startPage + pageCnt - 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
 		List<Employee> list = employeeService.getEmployeeList(currentPage, rowPerPage, searchWord);
 		// request.setAttribute("list", list);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("ttlEmpCnt", ttlEmpCnt);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		return "employee/empList";
 	}
 }

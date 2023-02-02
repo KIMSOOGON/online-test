@@ -1,6 +1,7 @@
 package goodee.gdj58.online.service;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -8,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import goodee.gdj58.online.controller.EmployeeController;
 import goodee.gdj58.online.mapper.EmployeeMapper;
 import goodee.gdj58.online.mapper.IdMapper;
 import goodee.gdj58.online.vo.Employee;
 import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Teacher;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional
 public class EmployeeService {
@@ -59,6 +63,7 @@ public class EmployeeService {
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("searchWord", searchWord);
+
 		return employeeMapper.selectEmployeeList(paramMap);
 	}
 }
