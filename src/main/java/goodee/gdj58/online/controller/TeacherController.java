@@ -1,6 +1,7 @@
 package goodee.gdj58.online.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,14 +14,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.TeacherService;
-import goodee.gdj58.online.vo.Employee;
 import goodee.gdj58.online.vo.Teacher;
 import goodee.gdj58.online.vo.Test;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class TeacherController {
 	@Autowired TeacherService teacherService;
 	@Autowired IdService idService;
+	
+	// 문제 목록
+	@GetMapping("/teacher/testOne")
+	public String testOne(Model model
+							, @RequestParam(value="testNo") int testNo) {
+		List<Map<String,Object>> list = teacherService.getExampleList(testNo);
+		Test thisTest = teacherService.thisTest(testNo);
+		int ttlQstCnt = list.size() / 4;
+		// 문제갯수
+		log.debug("\u001B[31m"+"총 문제 수 : "+ttlQstCnt);
+		model.addAttribute("list", list);
+		model.addAttribute("ttlQstCnt", ttlQstCnt);
+		model.addAttribute("thisTest", thisTest);
+		return "teacher/testOne";
+	}
 	
 	// 시험 등록
 	@GetMapping("/teacher/addTest")
@@ -37,7 +54,7 @@ public class TeacherController {
 	
 	// 시험 목록
 	@GetMapping("/testList")
-	public String testList(HttpSession session, Model model
+	public String testList(Model model
 								, @RequestParam(value="currentPage", defaultValue="1") int currentPage
 								, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
 								, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
@@ -87,12 +104,12 @@ public class TeacherController {
 	
 	// 입력 (강사등록)
 	@GetMapping("/employee/addTeacher")
-	public String addTeacher(HttpSession session) {
+	public String addTeacher() {
 		
 		return "employee/addTeacher"; // forward
 	}
 	@PostMapping("/employee/addTeacher")
-	public String addTeacher(HttpSession session, Teacher teacher) {
+	public String addTeacher(Teacher teacher) {
 		String idCheck = idService.getIdCheck(teacher.getTeacherId());
 		if(idCheck != null) {
 			return "redirect:/employee/addTeacher";
@@ -104,7 +121,7 @@ public class TeacherController {
 	}
 	
 	@GetMapping("/employee/teacherList")
-	public String teacherList(HttpSession session, Model model
+	public String teacherList(Model model
 								, @RequestParam(value="currentPage", defaultValue="1") int currentPage
 								, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
 								, @RequestParam(value="searchWord", defaultValue="") String searchWord) {

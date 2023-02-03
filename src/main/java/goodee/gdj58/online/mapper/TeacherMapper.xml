@@ -2,7 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.TeacherMapper">
 
+	<!-- 시험지 출력 (문제당 보기항목) -->
+	<select id="selectExampleList"
+		resultType="java.util.Map"
+		parameterType="int">
+		SELECT
+			q.question_idx questionIdx
+			, q.question_title questionTitle
+			, e.example_idx exampleIdx
+			, e.example_title exampleTitle
+			, e.example_ox exampleOx
+		FROM question q
+		INNER JOIN example e ON e.question_no = q.question_no
+		WHERE q.test_no = #{testNo}
+		ORDER BY q.question_idx ASC, e.example_idx ASC
+	</select>
+
+	<!-- 시험지 출력 (시험에 해당하는 문제리스트) -->
+	<select id="selectQuestionList"
+		resultType="goodee.gdj58.online.vo.Question"
+		parameterType="int">
+			SELECT
+				question_no questionNo
+				, question_idx questionIdx
+				, question_title questionTitle
+			FROM question
+			WHERE test_no = #{testNo}
+			ORDER BY question_idx ASC
+	</select>
+	
+	<!-- Example 등록 -->
+	<insert id="insertExample" parameterType="goodee.gdj58.online.vo.Example">
+		INSERT INTO question(
+			question_no
+			, example_idx
+			, example_title
+			, example_ox
+		) VALUES (
+			#{questionNo}
+			, #{exmapleIdx}
+			, #{exampleTitle}
+			, #{exmpleOx}
+		)
+	</insert>
+
+	<!-- Question 등록 -->
+	<insert id="insertQuestion" parameterType="goodee.gdj58.online.vo.Test">
+		INSERT INTO question(
+			test_no
+			, question_idx
+			, question_title
+		) VALUES (
+			#{testNo}
+			, #{qustionIdx}
+			, #{qustionTitle}
+		)
+	</insert>
+
 	<!-- TEST 목록/등록/삭제/수정 -->
+	<!-- one Test -->
+	<select id="thisTest"
+		resultType="goodee.gdj58.online.vo.Test"
+		parameterType="int">
+		SELECT
+			test_title testTitle
+			, test_date testDate
+		FROM test
+		WHERE test_no = #{testNo}
+	</select>
+	
 	<!-- TEST 등록 -->
 	<insert id="insertTest" parameterType="goodee.gdj58.online.vo.Test">
 		INSERT INTO test (

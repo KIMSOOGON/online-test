@@ -42,14 +42,9 @@
 			<th>번호</th>
 			<th>시험명</th>
 			<th>등록날짜</th>
-			<th>
-				<c:if test=${loginTeacher != null}>
-					삭제
-				</c:if>
-				<c:if test=${loginStudent != null}>
-					응시
-				</c:if>
-			</th>
+			<th>응시</th>
+			<th>삭제</th>
+
 
 		</tr>
 		<!-- 시험목록 출력 -->
@@ -57,24 +52,40 @@
 			<tr>
 				<td>${t.testNo}</td>
 				<td>
-					<c:if test=${loginTeacher != null}>
-					<a href="">${t.testTitle}</a>
-					</c:if>
-					<c:if test=${loginTeacher == null}>
-					${t.testTitle}
-					</c:if>
+					<a href="${pageContext.request.contextPath}/teacher/testOne?testNo=${t.testNo}">${t.testTitle}</a>
 				</td>
 				<td>${t.testDate}</td>
 				<td>
-					<c:if test=${loginTeacher != null}>
-						<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}">삭제</a>
-					</c:if>
-					<c:if test=${loginStudent != null}>
-						<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}">응시하기</a>
-					</c:if>
+					<a href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">응시</a>
+				</td>
+				<td>
+					<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}">삭제</a>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<!-- 페이징 -->
+	<div>
+		<a href="${pageContext.request.contextPath}/testList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23EA</a>
+		<c:if test="${currentPage > 10}">
+			<a href="${pageContext.request.contextPath}/testList?currentPage=${startPage-10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">◀</a>
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+			<c:choose>
+				<c:when test="${currentPage == i}">
+					<span style="font-weight:bold; color:orange;">${i}</span>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/testList?currentPage=${i}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">${i}</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${(lastPage-startPage) > 10}">
+			<a href="${pageContext.request.contextPath}/testList?currentPage=${startPage+10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">▶</a>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/testList?currentPage=${lastPage}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23E9</a>
+	</div>
+
 </body>
 </html>
