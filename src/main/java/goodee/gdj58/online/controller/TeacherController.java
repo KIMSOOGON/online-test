@@ -15,15 +15,54 @@ import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Employee;
 import goodee.gdj58.online.vo.Teacher;
+import goodee.gdj58.online.vo.Test;
 
 @Controller
 public class TeacherController {
 	@Autowired TeacherService teacherService;
 	@Autowired IdService idService;
 	
-	// 강사 홈화면
+	// 시험 등록
+	@GetMapping("/teacher/addTest")
+	public String addTest(HttpSession session) {
+		
+		return "teacher/addTest"; // forward
+	}
+	@PostMapping("/teacher/addTest")
+	public String addTest(HttpSession session, Test test) {		
+		int row = teacherService.addTest(test);
+		// row == 1 이면 입력성공
+		return "redirect:/testList"; // sendRedirect, CM -> C (C로 다시 redirect)
+	}
 	
-	
+	// 시험 목록
+	@GetMapping("/testList")
+	public String testList(HttpSession session, Model model
+								, @RequestParam(value="currentPage", defaultValue="1") int currentPage
+								, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+								, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
+		// 페이징관련
+		int ttlTestCnt = teacherService.ttlTeaCnt(searchWord);
+		int lastPage = (int)Math.ceil((double)ttlTestCnt / (double)rowPerPage);
+		int pageCnt =10;
+		int startPage = ((currentPage-1)/pageCnt)*pageCnt + 1;
+		int endPage = startPage + pageCnt - 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		List<Test> list = teacherService.getTestList(currentPage, rowPerPage, searchWord);
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("ttlTestCnt", ttlTestCnt);		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		return "testList";
+	}
+
+	// ====================== 강사 관련 ========================
 	// 강사 로그인
 	@GetMapping("/loginTeacher")
 	public String loginTeacher() {
@@ -38,16 +77,10 @@ public class TeacherController {
 		session.setAttribute("loginTeacher", resultTeacher);
 		return "redirect:/Home";
 	}
-	
-	// ====================== 강사 관련 CRUD ========================
+		
 	// 삭제 (강사삭제)
 	@GetMapping("/employee/removeTeacher")
-	public String removeTeacher(HttpSession session, @RequestParam("teacherNo") int teacherNo) {
-		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
-		
+	public String removeTeacher(@RequestParam("teacherNo") int teacherNo) {
 		teacherService.removeTeacher(teacherNo);
 		return "redirect:/employee/teacherList"; // 리스트로 리다이렉트
 	}
@@ -55,10 +88,6 @@ public class TeacherController {
 	// 입력 (강사등록)
 	@GetMapping("/employee/addTeacher")
 	public String addTeacher(HttpSession session) {
-		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
 		
 		return "employee/addTeacher"; // forward
 	}
@@ -99,6 +128,6 @@ public class TeacherController {
 		model.addAttribute("endPage", endPage);
 		return "employee/teacherList";
 	}
-	// ====================== 강사 관련 CRUD ========================
+	// ====================== 강사 관련 ========================
 		
 }
