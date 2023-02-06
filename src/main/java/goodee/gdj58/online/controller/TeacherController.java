@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.IdService;
@@ -30,10 +29,15 @@ public class TeacherController {
 	// ====================== testOne.jsp ==========================
 	// 문제 수정
 	@GetMapping("/teacher/modifyQuestion")
-	public String modifyQuestionExample(@RequestParam(value="questionNo") int questionNo
-											,@RequestParam(value="testNo") int testNo){
+	public String modifyQuestionExample(Model model
+											, @RequestParam(value="questionNo") int questionNo
+											, @RequestParam(value="testNo") int testNo){
+		List<Map<String,Object>> list = teacherService.getOneQuestion(testNo, questionNo);	
+		model.addAttribute("list",list);
+		
 		return "teacher/modifyQuestion";
 	}
+	
 	
 	// 문제 삭제
 	@GetMapping("/teacher/removeQuestion")
@@ -71,7 +75,7 @@ public class TeacherController {
 			log.debug("\u001B[31m"+"exampleTitle : "+example[i].getExampleTitle());
 			example[i].setExampleIdx(exampleIdx[i]);
 			example[i].setExampleOx("오답");
-			if(exampleOx == i) {
+			if(exampleOx == (i+1)) {
 				example[i].setExampleOx("정답");
 			} 
 			int addExample = teacherService.addExample(example[i]);

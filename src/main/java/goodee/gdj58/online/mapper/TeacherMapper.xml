@@ -3,7 +3,37 @@
 <mapper namespace="goodee.gdj58.online.mapper.TeacherMapper">
 
 	<!-- testOne관련 (question및example 등록/수정/삭제) -->
+	<!-- example 수정하기 -->
+	<select id="modifyExample"
+		parameterType="java.util.Map">
+		UPDATE example
+		SET example_
+	</select>
 	
+	<!-- question 수정하기 -->
+	<select id="modifyQuestion"
+		parameterType="java.util.Map">
+		UPDATE question
+		SET question_title = #{questionTitle}
+		WHERE question_no = #{questionNo}
+	</select>
+	
+	<!-- 수정을 위한 question One 불러오기 -->
+	<select id="oneQuestion" 
+		parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT
+			q.question_no questionNo
+			, q.question_idx questionIdx
+			, q.question_title questionTitle
+			, e.example_idx exampleIdx
+			, e.example_title exampleTitle
+			, e.example_ox exampleOx
+		FROM question q
+		INNER JOIN example e ON e.question_no = q.question_no
+		WHERE q.test_no = #{testNo} AND q.question_no = #{questionNo}
+		ORDER BY e.example_idx ASC
+	</select>
 	
 	<!-- question 삭제 -->
 	<delete id="deleteQuestion" parameterType="int">

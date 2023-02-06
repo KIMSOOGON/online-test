@@ -16,6 +16,9 @@ public interface TeacherMapper {
 	
 
 	// 시험 CRUD + list
+	int modifyExample(Map<String,Object> paramMap);
+	int modifyQuestion(Map<String,Object> paramMap);
+	List<Map<String,Object>> oneQuestion(Map<String, Object> paramMap);
 	int deleteExampleOne(int exampleNo);
 	int deleteExample(int questionNo);
 	int deleteQuestion(int questionNo);

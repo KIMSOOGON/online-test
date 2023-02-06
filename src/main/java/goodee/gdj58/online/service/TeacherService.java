@@ -20,6 +20,14 @@ public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
 	
 	// ===================== 문제 관련 =========================
+	// oneQuestion
+	public List<Map<String,Object>> getOneQuestion(int testNo, int questionNo) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("testNo", testNo);
+		paramMap.put("questionNo", questionNo);
+		return teacherMapper.oneQuestion(paramMap);
+	}
+	
 	// 문제삭제 (해당문제 example도 일괄삭제처리 트랜잭션)
 	public int deleteQuestionExample(int questionNo) {
 		int deleteExample = teacherMapper.deleteExample(questionNo);
