@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.online.mapper.TeacherMapper;
 import goodee.gdj58.online.vo.Example;
+import goodee.gdj58.online.vo.Question;
 import goodee.gdj58.online.vo.Teacher;
 import goodee.gdj58.online.vo.Test;
 
@@ -18,12 +19,34 @@ import goodee.gdj58.online.vo.Test;
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
 	
-	// ===================== 시험 관련 =========================
-	// 해당회차시험 문제 목록 (해당회차 시험 문제 및 5지선다 확인)
+	// ===================== 문제 관련 =========================
+	// 문제삭제 (해당문제 example도 일괄삭제처리 트랜잭션)
+	public int deleteQuestionExample(int questionNo) {
+		int deleteExample = teacherMapper.deleteExample(questionNo);
+		return teacherMapper.deleteQuestion(questionNo);
+	}
+	
+	// 마지막문제의 questionNo
+	public int getLastQuestionNo() {
+		return teacherMapper.selectLastQuestionNo();
+	}
+	
+	// 해당회차시험 문제 목록 (해당회차 시험 문제 및 4지선다 확인)
 	public List<Map<String,Object>> getExampleList(int testNo) {
 		return teacherMapper.selectExampleList(testNo);
 	}
 	
+	// Question 등록
+	public int addQuestion(Question question) {
+		return teacherMapper.insertQuestion(question);
+	}
+	
+	// Example 등록
+	public int addExample(Example example) {
+		return teacherMapper.insertExample(example);
+	}
+	
+	// ===================== 시험 관련 =========================	
 	// 시험 등록
 	public int addTest(Test test) {
 		return teacherMapper.insertTest(test);

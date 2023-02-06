@@ -16,12 +16,17 @@ public interface TeacherMapper {
 	
 
 	// 시험 CRUD + list
+	int deleteExampleOne(int exampleNo);
+	int deleteExample(int questionNo);
+	int deleteQuestion(int questionNo);
+	int selectLastQuestionNo();
 	List<Map<String,Object>> selectExampleList(int testNo);
 	ArrayList<Question> selectQuestionList(int testNo);
 	int insertExample(Example example);
 	int insertQuestion(Question question);
 	Test thisTest(int testNo);
 	int insertTest(Test test);
+	int deleteTest(int testNo);
 	int ttlTestCnt(String searchWord);
 	List<Test> selectTestList(Map<String, Object> paramMap);
 	

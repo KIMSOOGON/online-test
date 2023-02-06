@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.TeacherService;
+import goodee.gdj58.online.vo.Example;
+import goodee.gdj58.online.vo.Question;
 import goodee.gdj58.online.vo.Teacher;
 import goodee.gdj58.online.vo.Test;
 import lombok.extern.slf4j.Slf4j;
@@ -24,21 +27,81 @@ public class TeacherController {
 	@Autowired TeacherService teacherService;
 	@Autowired IdService idService;
 	
-	// 문제 목록
+	// ====================== testOne.jsp ==========================
+	// 문제 수정
+	@GetMapping("/teacher/modifyQuestion")
+	public String modifyQuestionExample(@RequestParam(value="questionNo") int questionNo
+											,@RequestParam(value="testNo") int testNo){
+		return "teacher/modifyQuestion";
+	}
+	
+	// 문제 삭제
+	@GetMapping("/teacher/removeQuestion")
+	public String removeQuestionExample(@RequestParam(value="questionNo") int questionNo
+											,@RequestParam(value="testNo") int testNo){
+		teacherService.deleteQuestionExample(questionNo);
+		return "redirect:/teacher/testOne?testNo="+testNo;
+	}
+	
+	// 문제 등록 (exmple도 동시에)
+	@PostMapping("/teacher/addQuestionExample")
+	public String addQuestionExample(Question question
+										, @RequestParam(value="exampleTitle") String[] exampleTitle
+										, @RequestParam(value="exampleIdx") int[] exampleIdx
+										, @RequestParam(value="exampleOx") int exampleOx) {
+		log.debug("\u001B[31m"+"questionTitle : "+question.getQuestionTitle());
+		log.debug("\u001B[31m"+"questionIdx : "+question.getQuestionIdx());
+		log.debug("\u001B[31m"+"testNo : "+question.getTestNo());
+		
+		int addQuestion = teacherService.addQuestion(question);
+		if(addQuestion == 1) {
+			log.debug("\u001B[31m"+"qustionAdd 성공");
+		}
+		int lastQuestionNo = teacherService.getLastQuestionNo();
+		int testNo = question.getTestNo();
+
+		Example[] example = new Example[4];
+		log.debug("\u001B[31m"+"exampleLength : "+example.length);
+		for(int i=0; i<example.length; i++) {
+			example[i] = new Example();
+			example[i].setQuestionNo(lastQuestionNo);
+			// log.debug("\u001B[31m"+"test : "+i);
+			log.debug("\u001B[31m"+"questionNo : "+example[i].getQuestionNo());
+			example[i].setExampleTitle(exampleTitle[i]);
+			log.debug("\u001B[31m"+"exampleTitle : "+example[i].getExampleTitle());
+			example[i].setExampleIdx(exampleIdx[i]);
+			example[i].setExampleOx("오답");
+			if(exampleOx == i) {
+				example[i].setExampleOx("정답");
+			} 
+			int addExample = teacherService.addExample(example[i]);
+			if(addExample == 1) {
+				log.debug("\u001B[31m"+"test : "+example[i]);
+				log.debug("\u001B[31m"+exampleIdx[i]+"번 선택지 등록 성공");
+			}
+			
+		}		
+		return "redirect:/teacher/testOne?testNo="+testNo;
+	}
+	
+	// 문제 목록 
 	@GetMapping("/teacher/testOne")
 	public String testOne(Model model
 							, @RequestParam(value="testNo") int testNo) {
 		List<Map<String,Object>> list = teacherService.getExampleList(testNo);
 		Test thisTest = teacherService.thisTest(testNo);
 		int ttlQstCnt = list.size() / 4;
+		int lastQuestionNo = teacherService.getLastQuestionNo();
 		// 문제갯수
 		log.debug("\u001B[31m"+"총 문제 수 : "+ttlQstCnt);
 		model.addAttribute("list", list);
 		model.addAttribute("ttlQstCnt", ttlQstCnt);
 		model.addAttribute("thisTest", thisTest);
+		model.addAttribute("lastQuestionNo", lastQuestionNo);
 		return "teacher/testOne";
 	}
 	
+	// ================= testList.jsp =====================
 	// 시험 등록
 	@GetMapping("/teacher/addTest")
 	public String addTest(HttpSession session) {
