@@ -118,7 +118,6 @@ public class TeacherController {
 				log.debug("\u001B[31m"+"test : "+example[i]);
 				log.debug("\u001B[31m"+exampleIdx[i]+"번 선택지 등록 성공");
 			}
-			
 		}		
 		return "redirect:/teacher/testOne?testNo="+testNo;
 	}

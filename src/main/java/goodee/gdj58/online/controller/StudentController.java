@@ -1,6 +1,7 @@
 package goodee.gdj58.online.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,18 +14,58 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.StudentService;
+import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Employee;
+import goodee.gdj58.online.vo.Paper;
 import goodee.gdj58.online.vo.Student;
-import goodee.gdj58.online.vo.Teacher;
+import goodee.gdj58.online.vo.Test;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class StudentController {
 	@Autowired StudentService studentService;
+	@Autowired TeacherService teacherService;
 	@Autowired IdService idService;
 	
+	// ====================== 시험 관련 ============================
+	// 답안지 제출 (paper등록)
+	@PostMapping("/student/addPaper")
+	public String addPaper(@RequestParam(value="questionNo") int[] questionNo
+							, @RequestParam(value="answer") int[] answer
+							, @RequestParam(value="testNo") int testNo
+							, @RequestParam(value="studentNo") int studentNo) {
+		log.debug("\u001B[31m"+"questionIdx 0 : "+questionNo[0]);
+		log.debug("\u001B[31m"+"questionIdx 1 : "+questionNo[1]);
+		log.debug("\u001B[31m"+"answer 0 : "+answer[0]);
+		log.debug("\u001B[31m"+"answer 1 : "+answer[1]);
+		int questionCnt = questionNo.length; // 문항 갯수
+		
+		Paper[] paper = new Paper[questionCnt]; // 문항 갯수만큼의 Paper 배열선언
+		for(int i=0; i<questionCnt; i++) {
+			paper[i] = new Paper();
+			paper[i].setStudentNo(studentNo);
+			paper[i].setTestNo(testNo);
+			paper[i].setQuestionNo(questionNo[i]);
+			paper[i].setAnswer(answer[i]);
+			
+		}
+		
+		return "redirect:/testList";
+	}
 	
+	// 시험지 출력 
+	@GetMapping("/student/examTest")
+	public String examTest(Model model
+							, @RequestParam(value="testNo") int testNo) {
+		List<Map<String,Object>> list = studentService.getExampleList(testNo);
+		Test thisTest = teacherService.thisTest(testNo);
+
+		model.addAttribute("list", list);
+		// model.addAttribute("answerList", answerList);
+		model.addAttribute("thisTest", thisTest);
+		return "student/examTest";
+	}
 		
 	// ====================== 학생 관련 CRUD ========================
 	// pw수정

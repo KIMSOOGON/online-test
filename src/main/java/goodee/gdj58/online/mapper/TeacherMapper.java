@@ -1,6 +1,5 @@
 package goodee.gdj58.online.mapper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +24,6 @@ public interface TeacherMapper {
 	int deleteQuestion(int questionNo);
 	int selectLastQuestionNo();
 	List<Map<String,Object>> selectExampleList(int testNo);
-	ArrayList<Question> selectQuestionList(int testNo);
 	int insertExample(Example example);
 	int insertQuestion(Question question);
 	
