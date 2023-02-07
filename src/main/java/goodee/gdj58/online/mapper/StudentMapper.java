@@ -6,13 +6,17 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import goodee.gdj58.online.vo.Paper;
+import goodee.gdj58.online.vo.Score;
 import goodee.gdj58.online.vo.Student;
 
 @Mapper	
 public interface StudentMapper {
-	// 시험응시
-	int insertPaperAnswer(Paper paper);
-	int selectQuestionOx(int questionNo);
+	// 시험응시 및 답안확인
+	int insertScorePaper(Score score);
+	int ttlCorrectCnt(int testNo); // 맞춘 정답 갯수 (맞춘 문항의 갯수)
+	int ttlQuestionCnt(int testNo); // 해당시험 전체 문항 갯수
+	int insertPaperAnswer(Paper paper); // 답안지 제출
+	int selectQuestionOx(int questionNo); // 정답 조회 (제출답안과 비교를 위함)
 	List<Map<String,Object>> selectExampleList(int testNo); // 해당회차 시험지 출력
 	
 	// 학생 CRUD + list

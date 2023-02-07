@@ -78,7 +78,8 @@
 						</div>
 						<!-- 문제 고유번호(questionNo) + 선택한 답안(answer) 히든처리하여 컨트롤러로 넘겨주기  -->
 						<input type="hidden" name="questionNo" value="${q.questionNo}">
-						<input type="hidden" id="answer${q.questionIdx}" name="answer" value="">
+						<!-- 정답 미선택 제출시, value 0 오답처리 -->
+						<input type="hidden" id="answer${q.questionIdx}" name="answer" value="0">
 					</c:if>
 					<br>
 					<!-- 선택지 -->

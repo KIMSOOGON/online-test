@@ -39,8 +39,9 @@ public class StudentController {
 		log.debug("\u001B[31m"+"questionIdx 1 : "+questionNo[1]);
 		log.debug("\u001B[31m"+"answer 0 : "+answer[0]);
 		log.debug("\u001B[31m"+"answer 1 : "+answer[1]);
-		int questionCnt = questionNo.length; // 문항 갯수
 		
+		// 답안지 제출 및 채점
+		int questionCnt = questionNo.length; // 문항 갯수
 		Paper[] paper = new Paper[questionCnt]; // 문항 갯수만큼의 Paper 배열선언
 		for(int i=0; i<questionCnt; i++) {
 			paper[i] = new Paper();
@@ -61,6 +62,9 @@ public class StudentController {
 				log.debug("\u001B[31m"+testNo+"번 시험 "+questionNo[i]+"번 문항 답안제출 완료");
 			}
 		}
+		// 점수 통계내기
+		int getScorePaper = studentService.getScorePaper(testNo, studentNo);
+		
 		return "redirect:/testList";
 	}
 	

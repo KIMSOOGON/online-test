@@ -3,7 +3,37 @@
 <mapper namespace="goodee.gdj58.online.mapper.StudentMapper">
 
 	<!-- ============ 시험관련 ================ -->
-	<!-- 채점 정답 여부확인 -->
+	<!-- score 저장하기 -->
+	<insert id="insertScorePaper"
+		parameterType="goodee.gdj58.online.vo.Score">
+		INSERT INTO score(
+			student_no
+			, test_no
+			, score
+		) VALUES (
+			#{studentNo}
+			, #{testNo}
+			, #{score}
+		)
+	</insert>
+	
+	<!-- 정답갯수 (맞춘 문항 수) -->
+	<select id="ttlCorrectCnt"
+		parameterType="int"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM paper
+		WHERE test_no = #{testNo} AND answer_ox = '정답'
+	</select>
+	
+	<!-- 해당시험 전체 문항갯수 -->
+	<select id="ttlQuestionCnt"
+		parameterType="int"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM question
+		WHERE test_no = #{testNo}	
+	</select>
 	
 	<!-- question 답 불러오기 -->
 	<select id="selectQuestionOx"

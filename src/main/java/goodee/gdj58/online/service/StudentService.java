@@ -8,15 +8,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import goodee.gdj58.online.controller.StudentController;
 import goodee.gdj58.online.mapper.StudentMapper;
 import goodee.gdj58.online.vo.Paper;
+import goodee.gdj58.online.vo.Score;
 import goodee.gdj58.online.vo.Student;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	// ====================== 시험 관련 ========================
+	// score매기기
+	public int getScorePaper(int testNo, int studentNo) {
+		int ttlQuestionCnt = studentMapper.ttlQuestionCnt(testNo);
+		int ttlCorrectCnt = studentMapper.ttlCorrectCnt(testNo);
+		int myScore = (int)(((double)ttlCorrectCnt / (double)ttlQuestionCnt) * 100);
+		// 점수 -> 소수점이하는 버림
+		log.debug("\u001B[31m"+"총 문항 수 : "+ttlQuestionCnt);
+		log.debug("\u001B[31m"+"맞힌 문항 수 : "+ttlCorrectCnt);
+		log.debug("\u001B[31m"+"내 점수 : "+myScore);
+		Score score = new Score();
+		score.setStudentNo(studentNo);
+		score.setTestNo(testNo);
+		score.setScore(myScore);
+		return studentMapper.insertScorePaper(score);
+	}
+	
 	// 채점 (해당 문제의 정답 여부 확인)
 	public int getQuestionOx(int questionNo) {
 		return studentMapper.selectQuestionOx(questionNo);
