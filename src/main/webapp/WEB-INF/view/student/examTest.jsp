@@ -50,7 +50,7 @@
 						// alert(exampleAnswer);
 						// console.log(exampleAnswer);
 						$('#answer${q.questionIdx}').val(exampleAnswer);
-						// $('input[id=answer${q.questionIdx}]').attr('value',exampleAnswer);
+						
 					}
 					$('#examForm').submit();
 				});
