@@ -155,6 +155,13 @@ public class TeacherController {
 		return "redirect:/testList"; // sendRedirect, CM -> C (C로 다시 redirect)
 	}
 	
+	// 시험 삭제
+	@GetMapping("/teacher/removeTest")
+	public String removeTest(@RequestParam(value="testNo") int testNo){
+		teacherService.removeTest(testNo);
+		return "redirect:/testList";
+	}
+	
 	// 시험 목록
 	@GetMapping("/testList")
 	public String testList(Model model

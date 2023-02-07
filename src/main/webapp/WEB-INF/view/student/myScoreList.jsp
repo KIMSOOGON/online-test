@@ -7,6 +7,11 @@
 <title></title>
 </head>
 <body>
+	<!-- 학생 상단 menu -->
+	<div>
+		<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
+	</div>
+	
 	<h1>${loginStudent.studentName}님의 응시한 시험 목록 및 채점결과</h1>
 	
 	<!-- 시험검색 -->
@@ -54,5 +59,26 @@
 		</tbody>
 	</table>
 	
+	<!-- 페이징 -->
+	<div>
+		<a href="${pageContext.request.contextPath}/student/myScoreList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23EA</a>
+		<c:if test="${currentPage > 10}">
+			<a href="${pageContext.request.contextPath}/student/myScoreList?currentPage=${startPage-10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">◀</a>
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+			<c:choose>
+				<c:when test="${currentPage == i}">
+					<span style="font-weight:bold; color:orange;">${i}</span>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/student/myScoreList?currentPage=${i}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">${i}</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${(lastPage-startPage) > 10}">
+			<a href="${pageContext.request.contextPath}/student/myScoreList?currentPage=${startPage+10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">▶</a>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/student/myScoreList?currentPage=${lastPage}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23E9</a>
+	</div>
 </body>
 </html>

@@ -38,7 +38,7 @@
 		<a href="${pageContext.request.contextPath}/teacher/addTest">시험등록</a>
 	</c:if>
 	<!-- 시험검색 -->
-	<form method="get" action="${pageContext.request.contextPath}/teacher/testList">
+	<form method="get" action="${pageContext.request.contextPath}/testList">
 		<select name="rowPerPage">
 			<c:if test="${rowPerPage == 5}">
 				<option value="5" selected="selected">5</option>

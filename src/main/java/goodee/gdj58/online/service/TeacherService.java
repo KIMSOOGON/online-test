@@ -75,6 +75,11 @@ public class TeacherService {
 		return teacherMapper.insertTest(test);
 	}
 	
+	// 시험 삭제
+	public int removeTest(int testNo) {
+		return teacherMapper.deleteTest(testNo);
+	}
+	
 	// 한개의 시험
 	public Test thisTest(int testNo) {
 		return teacherMapper.thisTest(testNo);
