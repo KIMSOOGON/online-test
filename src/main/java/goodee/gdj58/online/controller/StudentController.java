@@ -29,6 +29,38 @@ public class StudentController {
 	@Autowired IdService idService;
 	
 	// ====================== 시험 관련 ============================
+	// 내 scoreList 출력 (score조회)
+	@GetMapping("/student/myScoreList")
+	public String myScoreList(HttpSession session, Model model
+					, @RequestParam(value="currentPage", defaultValue="1") int currentPage
+					, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+					, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
+		log.debug("\u001B[31m"+"currentPage : "+currentPage);
+		log.debug("\u001B[31m"+"searchWord : "+searchWord);
+		Student loginStudent = (Student)session.getAttribute("loginStudent");
+		int studentNo = loginStudent.getStudentNo();
+		// 페이징관련
+		int ttlScoreCnt = studentService.ttlScoreCnt(studentNo, searchWord);
+		int lastPage = (int)Math.ceil((double)ttlScoreCnt / (double)rowPerPage);
+		int pageCnt =10;
+		int startPage = ((currentPage-1)/pageCnt)*pageCnt + 1;
+		int endPage = startPage + pageCnt - 1;
+		if(endPage > lastPage) {
+		endPage = lastPage;
+		}
+		
+		List<Map<String,Object>> list = studentService.selectScoreList(studentNo, currentPage, rowPerPage, searchWord);
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("ttlScoreCnt", ttlScoreCnt);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		return "student/myScoreList";
+		}	
+	
 	// 답안지 제출 (paper등록)
 	@PostMapping("/student/addPaper")
 	public String addPaper(@RequestParam(value="questionNo") int[] questionNo

@@ -3,6 +3,37 @@
 <mapper namespace="goodee.gdj58.online.mapper.StudentMapper">
 
 	<!-- ============ 시험관련 ================ -->
+	<!-- 내 score 조회하기 -->
+	<select id="selectScoreList" 
+		resultType="java.util.Map"
+		parameterType="java.util.Map">
+		SELECT
+			t.test_title testTitle
+			, s.score score
+			, s.score_date scoreDate
+		FROM score s
+		INNER JOIN test t ON s.test_no = t.test_no
+		WHERE s.student_no = #{studentNo}
+		<if test="searchWord != null || searchWord != ''">
+			AND t.test_title LIKE CONCAT('%',#{searchWord},'%')
+		</if>
+		ORDER BY s.score_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 응시한 시험 갯수 -->
+	<select id="ttlScoreCnt"
+		parameterType="String"
+		resultType="int">
+		SELECT COUNT(*) 
+		FROM score s
+		INNER JOIN test t ON s.test_no = t.test_no
+		WHERE s.student_no = #{studentNo}
+		<if test="searchWord != null || searchWord != ''">
+			AND t.test_title LIKE CONCAT('%',#{searchWord},'%')
+		</if>
+	</select>
+	
 	<!-- score 저장하기 -->
 	<insert id="insertScorePaper"
 		parameterType="goodee.gdj58.online.vo.Score">
@@ -10,10 +41,12 @@
 			student_no
 			, test_no
 			, score
+			, score_date
 		) VALUES (
 			#{studentNo}
 			, #{testNo}
 			, #{score}
+			, CURDATE()
 		)
 	</insert>
 	
@@ -141,11 +174,10 @@
 			, student_id studentId
 			, student_name studentName
 		FROM student
-		<where> <!-- 검색값이 있을 경우 where태그 추가 -->
-			<if test="searchWord != null || searchWord != ''">
-				student_name LIKE CONCAT('%',#{searchWord},'%')
-			</if>
-		</where>
+		<!-- 검색값이 있을 경우 where태그 추가 -->
+		<if test="searchWord != null || searchWord != ''">
+			WHERE student_name LIKE CONCAT('%',#{searchWord},'%')
+		</if>
 		ORDER BY student_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

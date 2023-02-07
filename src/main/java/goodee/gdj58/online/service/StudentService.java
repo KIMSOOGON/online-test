@@ -21,6 +21,25 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	// ====================== 시험 관련 ========================
+	// 내 score 조회
+	public List<Map<String,Object>> selectScoreList(int studentNo, int currentPage, int rowPerPage, String searchWord) {
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
+		paramMap.put("studentNo", studentNo);
+		return studentMapper.selectScoreList(paramMap);
+	}
+	
+	// 응시한 시험 갯수
+	public int ttlScoreCnt(int studentNo, String searchWord) {
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		paramMap.put("studentNo", studentNo);
+		paramMap.put("searchWord", searchWord);
+		return studentMapper.ttlScoreCnt(paramMap);
+	}
+	
 	// score매기기
 	public int getScorePaper(int testNo, int studentNo) {
 		int ttlQuestionCnt = studentMapper.ttlQuestionCnt(testNo);
