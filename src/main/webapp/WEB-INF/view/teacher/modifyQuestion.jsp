@@ -7,13 +7,15 @@
 <title></title>
 </head>
 <body>
-	<form>
+	<h1>문제 수정</h1>
+	<form action="${pageContext.request.contextPath}/teacher/modifyQuestion" method="post">
 		<c:forEach var="q" items="${list}">
 			<c:if test="${q.exampleIdx == 1}">
 				<div>
 					${q.questionIdx}.
 				 	<input type="text" name="questionTitle" value="${q.questionTitle}">
 				 	<input type="hidden" name="questionNo" value="${q.questionNo}">
+				 	<input type="hidden" name="testNo" value="${q.testNo}">
 				 </div>
 			</c:if>
 			<br>
@@ -22,6 +24,7 @@
 				<div>
 					&nbsp;① 
 					<input type="text" name="exampleTitle" value="${q.exampleTitle}">
+					<input type="hidden" name="exampleNo" value="${q.exampleNo}">
 					<c:if test="${q.exampleOx == '정답'}">
 						<input type="radio" name="exampleOx" value="1" checked>
 					</c:if>
@@ -34,6 +37,7 @@
 				<div>
 					&nbsp;②
 					<input type="text" name="exampleTitle" value="${q.exampleTitle}">
+					<input type="hidden" name="exampleNo" value="${q.exampleNo}">
 					<c:if test="${q.exampleOx == '정답'}">
 						<input type="radio" name="exampleOx" value="2" checked>
 					</c:if>
@@ -46,6 +50,7 @@
 				<div>
 					&nbsp;③ 
 					<input type="text" name="exampleTitle" value="${q.exampleTitle}">
+					<input type="hidden" name="exampleNo" value="${q.exampleNo}">
 					<c:if test="${q.exampleOx == '정답'}">
 						<input type="radio" name="exampleOx" value="3" checked>
 					</c:if>
@@ -58,6 +63,7 @@
 				<div>
 					&nbsp;④ 
 					<input type="text" name="exampleTitle" value="${q.exampleTitle}">
+					<input type="hidden" name="exampleNo" value="${q.exampleNo}">
 					<c:if test="${q.exampleOx == '정답'}">
 						<input type="radio" name="exampleOx" value="4" checked>
 					</c:if>

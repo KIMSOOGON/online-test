@@ -20,6 +20,16 @@ public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
 	
 	// ===================== 문제 관련 =========================
+	// modfiy Example 선택지 수정
+	public int modifyExample(Example example) {
+		return teacherMapper.modifyExample(example);
+	}
+	
+	// modify Question 문제 수정
+	public int modifyQuestion(Question question) {
+		return teacherMapper.modifyQuestion(question);
+	}
+	
 	// oneQuestion
 	public List<Map<String,Object>> getOneQuestion(int testNo, int questionNo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

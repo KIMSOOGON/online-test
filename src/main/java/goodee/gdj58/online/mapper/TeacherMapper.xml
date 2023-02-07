@@ -4,19 +4,21 @@
 
 	<!-- testOne관련 (question및example 등록/수정/삭제) -->
 	<!-- example 수정하기 -->
-	<select id="modifyExample"
+	<update id="modifyExample"
 		parameterType="java.util.Map">
 		UPDATE example
-		SET example_
-	</select>
+		SET example_title = #{exampleTitle}
+			, example_ox = #{exampleOx}
+		WHERE example_no = #{exampleNo}
+	</update>
 	
 	<!-- question 수정하기 -->
-	<select id="modifyQuestion"
+	<update id="modifyQuestion"
 		parameterType="java.util.Map">
 		UPDATE question
 		SET question_title = #{questionTitle}
 		WHERE question_no = #{questionNo}
-	</select>
+	</update>
 	
 	<!-- 수정을 위한 question One 불러오기 -->
 	<select id="oneQuestion" 
@@ -24,8 +26,10 @@
 		resultType="java.util.Map">
 		SELECT
 			q.question_no questionNo
+			, q.test_no testNo
 			, q.question_idx questionIdx
 			, q.question_title questionTitle
+			, e.example_no exampleNo
 			, e.example_idx exampleIdx
 			, e.example_title exampleTitle
 			, e.example_ox exampleOx
