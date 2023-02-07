@@ -20,6 +20,11 @@ public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
 	
 	// ===================== 문제 관련 =========================
+	// answer List 답안지 출력
+	public List<Map<String,Object>> getAnswerList(int testNo) {
+		return teacherMapper.selectAnswerList(testNo);
+	}
+	
 	// modfiy Example 선택지 수정
 	public int modifyExample(Example example) {
 		return teacherMapper.modifyExample(example);

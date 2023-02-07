@@ -27,7 +27,7 @@ public class TeacherController {
 	@Autowired TeacherService teacherService;
 	@Autowired IdService idService;
 	
-	// ====================== testOne.jsp ==========================
+	// ====================== testOne.jsp ==========================	
 	// 문제 수정
 	@GetMapping("/teacher/modifyQuestion")
 	public String modifyQuestionExample(Model model
@@ -127,12 +127,14 @@ public class TeacherController {
 	public String testOne(Model model
 							, @RequestParam(value="testNo") int testNo) {
 		List<Map<String,Object>> list = teacherService.getExampleList(testNo);
+		List<Map<String,Object>> answerList = teacherService.getAnswerList(testNo);
 		Test thisTest = teacherService.thisTest(testNo);
 		int ttlQstCnt = list.size() / 4;
 		int lastQuestionNo = teacherService.getLastQuestionNo();
 		// 문제갯수
 		log.debug("\u001B[31m"+"총 문제 수 : "+ttlQstCnt);
 		model.addAttribute("list", list);
+		model.addAttribute("answerList", answerList);
 		model.addAttribute("ttlQstCnt", ttlQstCnt);
 		model.addAttribute("thisTest", thisTest);
 		model.addAttribute("lastQuestionNo", lastQuestionNo);
@@ -195,7 +197,6 @@ public class TeacherController {
 		session.setAttribute("loginTeacher", resultTeacher);
 		return "redirect:/Home";
 	}
-		
 	// 삭제 (강사삭제)
 	@GetMapping("/employee/removeTeacher")
 	public String removeTeacher(@RequestParam("teacherNo") int teacherNo) {

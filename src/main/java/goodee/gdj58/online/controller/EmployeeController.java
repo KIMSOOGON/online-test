@@ -54,13 +54,6 @@ public class EmployeeController {
 		session.setAttribute("loginEmp", resultEmp);
 		return "redirect:/employee/empList";
 	}
-	
-	// 로그아웃
-	@GetMapping("/employee/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/employee/loginEmp";
-	}
 	// ============================= 직원 로그인관련 ===============================
 	
 	// ---- 로그인 후에 사용가능한 기능 (삭제 등록) ----

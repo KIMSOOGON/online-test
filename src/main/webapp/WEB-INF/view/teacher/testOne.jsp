@@ -13,6 +13,12 @@
 
 </head>
 <body>
+	<c:if test="${loginTeacher != null}">
+		<div>
+			<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
+		</div>
+	</c:if>
+	
 	<h1>${thisTest.testTitle}</h1>
 	<p>${thisTest.testDate}</p>
 	
@@ -111,5 +117,11 @@
 			</div>
 		</c:forEach>
 	</div>
+	<!-- 문제 답지 하단에 출력 -->
+	<h5>=========답지===========</h5>
+	<c:forEach var="a" items="${answerList}">
+		<span>${a.questionIdx}) </span>
+		<span style="font-weight:bold; color:red;">${a.exampleIdx}</span>
+	</c:forEach>
 </body>
 </html>

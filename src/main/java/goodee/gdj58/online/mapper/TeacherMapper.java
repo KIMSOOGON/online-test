@@ -16,6 +16,7 @@ public interface TeacherMapper {
 	
 
 	// 시험 CRUD + list
+	List<Map<String,Object>> selectAnswerList(int testNo);
 	int modifyExample(Example example);
 	int modifyQuestion(Question question);
 	List<Map<String,Object>> oneQuestion(Map<String, Object> paramMap);

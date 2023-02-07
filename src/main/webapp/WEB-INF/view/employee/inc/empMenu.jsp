@@ -9,6 +9,6 @@
 	<a href="${pageContext.request.contextPath}/employee/studentList">학생관리</a>
 	<!-- 시험보기, 채점,  -->
 	
-	<a href="${pageContext.request.contextPath}/employee/logout">로그아웃</a>
+	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 	<a href="${pageContext.request.contextPath}/employee/modifyEmpPw">비밀번호수정</a>
 </div>

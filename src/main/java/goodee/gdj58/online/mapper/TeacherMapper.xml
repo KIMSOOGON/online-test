@@ -3,6 +3,20 @@
 <mapper namespace="goodee.gdj58.online.mapper.TeacherMapper">
 
 	<!-- testOne관련 (question및example 등록/수정/삭제) -->
+	<!-- 답안지 보기 -->
+	<select id="selectAnswerList"
+		resultType="java.util.Map"
+		parameterType="int">
+		SELECT
+			q.question_idx questionIdx
+			, e.example_idx exampleIdx
+		FROM example e
+		INNER JOIN question q ON e.question_no = q.question_no
+		INNER JOIN test t ON q.test_no = t.test_no
+		WHERE t.test_no = #{testNo} AND e.example_ox = '정답'
+		ORDER BY q.question_idx ASC
+	</select>
+	
 	<!-- example 수정하기 -->
 	<update id="modifyExample"
 		parameterType="java.util.Map">

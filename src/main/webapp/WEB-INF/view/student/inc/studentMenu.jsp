@@ -9,6 +9,6 @@
 	-->
 	<a href="${pageContext.request.contextPath}/teacher/testList">시험관리</a>
 	
-	<a href="${pageContext.request.contextPath}/student/logout">학생 로그아웃</a>
+	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 	
 </div>
