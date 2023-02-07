@@ -3,19 +3,32 @@
 <mapper namespace="goodee.gdj58.online.mapper.StudentMapper">
 
 	<!-- ============ 시험관련 ================ -->
+	<!-- 채점 정답 여부확인 -->
+	
+	<!-- question 답 불러오기 -->
+	<select id="selectQuestionOx"
+		parameterType="int"
+		resultType="int">
+		SELECT example_idx exampleIdx
+		FROM example
+		WHERE question_no = #{questionNo} AND example_ox = '정답'
+	</select>
+	
 	<!-- paper answer 등록 -->
 	<insert id="insertPaperAnswer"
 		parameterType="goodee.gdj58.online.vo.Paper">
 		INSERT INTO paper(
-			student_no studentNo
-			, test_no testNo
-			, question_no questionNo
+			student_no
+			, test_no
+			, question_no
 			, answer
+			, answer_ox
 		) VALUES (
 			#{studentNo}
 			, #{testNo}
 			, #{questionNo}
 			, #{answer}
+			, #{answerOx}
 		)
 	</insert>
 	

@@ -47,10 +47,20 @@ public class StudentController {
 			paper[i].setStudentNo(studentNo);
 			paper[i].setTestNo(testNo);
 			paper[i].setQuestionNo(questionNo[i]);
-			paper[i].setAnswer(answer[i]);
-			
+			paper[i].setAnswer(answer[i]); // 제출한 답안
+			int correctAnswer = studentService.getQuestionOx(questionNo[i]); // 실제 문제의 정답
+			log.debug("\u001B[31m"+"corretAnswer: "+correctAnswer);
+			if(correctAnswer == paper[i].getAnswer()) {
+				// 제출답안과 실제정답이 일치할 경우
+				paper[i].setAnswerOx("정답");
+			} else {
+				paper[i].setAnswerOx("오답"); 
+			}
+			int addPaper = studentService.addPaper(paper[i]);
+			if(addPaper == 1) {
+				log.debug("\u001B[31m"+testNo+"번 시험 "+questionNo[i]+"번 문항 답안제출 완료");
+			}
 		}
-		
 		return "redirect:/testList";
 	}
 	

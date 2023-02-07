@@ -17,6 +17,11 @@ import goodee.gdj58.online.vo.Student;
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	// ====================== 시험 관련 ========================
+	// 채점 (해당 문제의 정답 여부 확인)
+	public int getQuestionOx(int questionNo) {
+		return studentMapper.selectQuestionOx(questionNo);
+	}
+	
 	// paper 등록 (학생이 제출한 답지등록)
 	public int addPaper(Paper paper) {
 		return studentMapper.insertPaperAnswer(paper);

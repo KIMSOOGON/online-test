@@ -9,4 +9,5 @@ public class Paper {
 	private int testNo;
 	private int questionNo;
 	private int answer;
+	private String answerOx;
 }

@@ -12,6 +12,7 @@ import goodee.gdj58.online.vo.Student;
 public interface StudentMapper {
 	// 시험응시
 	int insertPaperAnswer(Paper paper);
+	int selectQuestionOx(int questionNo);
 	List<Map<String,Object>> selectExampleList(int testNo); // 해당회차 시험지 출력
 	
 	// 학생 CRUD + list

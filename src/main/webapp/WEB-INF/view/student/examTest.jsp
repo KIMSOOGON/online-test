@@ -49,7 +49,8 @@
 						let exampleAnswer = $('input[name=answer${q.questionIdx}]:checked').val();
 						// alert(exampleAnswer);
 						// console.log(exampleAnswer);
-						$('input[name=answer]').attr('value',exampleAnswer);
+						$('#answer${q.questionIdx}').val(exampleAnswer);
+						// $('input[id=answer${q.questionIdx}]').attr('value',exampleAnswer);
 					}
 					$('#examForm').submit();
 				});
@@ -77,7 +78,7 @@
 						</div>
 						<!-- 문제 고유번호(questionNo) + 선택한 답안(answer) 히든처리하여 컨트롤러로 넘겨주기  -->
 						<input type="hidden" name="questionNo" value="${q.questionNo}">
-						<input type="hidden" class="answer" name="answer" value="">
+						<input type="hidden" id="answer${q.questionIdx}" name="answer" value="">
 					</c:if>
 					<br>
 					<!-- 선택지 -->
