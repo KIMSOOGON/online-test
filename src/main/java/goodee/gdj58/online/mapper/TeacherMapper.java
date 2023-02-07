@@ -15,7 +15,7 @@ import goodee.gdj58.online.vo.Test;
 public interface TeacherMapper {
 	
 
-	// 시험 CRUD + list
+	// Question 및 Example CRUD + LIST
 	List<Map<String,Object>> selectAnswerList(int testNo);
 	int modifyExample(Example example);
 	int modifyQuestion(Question question);
@@ -28,6 +28,8 @@ public interface TeacherMapper {
 	ArrayList<Question> selectQuestionList(int testNo);
 	int insertExample(Example example);
 	int insertQuestion(Question question);
+	
+	// Test CRUD + list
 	Test thisTest(int testNo);
 	int insertTest(Test test);
 	int deleteTest(int testNo);
@@ -35,7 +37,7 @@ public interface TeacherMapper {
 	List<Test> selectTestList(Map<String, Object> paramMap);
 	
 	
-	// 강사 CRUD + list
+	// Teacher CRUD + list
 	int updateTeacherPw(Map<String,Object> paramMap);
 	Teacher login(Teacher teacher);
 	int deleteTeacher(int teacherNo);

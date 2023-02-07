@@ -192,7 +192,16 @@
 		ORDER BY test_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
-
+	
+	<!-- ============ 강사 CRUD 목록 (직원이 이용가능) ============ -->
+	<!-- 비밀번호수정 -->
+	<update id="updateTeacherPw"
+		parameterType="java.util.Map">
+		UPDATE teacher
+		SET teacher_pw = PASSWORD(#{newPw})
+		WHERE teacher_no = #{teacherNo} AND teacher_pw = PASSWORD(#{oldPw})
+	</update>
+	
 	<!-- 강사로그인 -->
 	<select id="login"
 		parameterType="goodee.gdj58.online.vo.Teacher"
@@ -204,8 +213,7 @@
 		FROM teacher
 		WHERE teacher_id = #{teacherId} AND teacher_pw = PASSWORD(#{teacherPw})	
 	</select>
-
-	<!-- ============ 강사 CRUD 목록 (직원이 이용가능) ============ -->
+	
 	<!-- 강사삭제 -->
 	<delete id="deleteTeacher" parameterType="int">
 		DELETE FROM teacher

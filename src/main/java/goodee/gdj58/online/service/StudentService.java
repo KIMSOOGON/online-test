@@ -17,12 +17,23 @@ import goodee.gdj58.online.vo.Teacher;
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	
+
+	// ====================== 학생 관련 =========================
+	// 비밀번호수정
+	public int updateStudentPw(int studentNo, String oldPw, String newPw) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("studentNo", studentNo);
+		paramMap.put("oldPw", oldPw);
+		paramMap.put("newPw", newPw);
+		System.out.println(paramMap.get("newPw"));
+		return studentMapper.updateStudentPw(paramMap);
+	}
+	
 	// 학생 로그인
 	public Student login(Student student) {
 		return studentMapper.login(student);
 	}
-
-	// ====================== 학생 관련 =========================
+		
 	// 학생삭제
 	public int removeStudent(int studentNo) {
 		return studentMapper.deleteStudent(studentNo);

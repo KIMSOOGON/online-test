@@ -12,7 +12,7 @@
 		<h1>학생로그인</h1>
 		<a href="${pageContext.request.contextPath}/loginEmp">직원</a>
 		<a href="${pageContext.request.contextPath}/loginTeacher">강사</a>
-		<form action="${pageContext.request.contextPath}/loginEmp" method="post">
+		<form action="${pageContext.request.contextPath}/loginStudent" method="post">
 			<table>
 				<tr>
 					<td><input type="text" name="studentId" placeholder="id"></td>

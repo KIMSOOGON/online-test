@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.gdj58.online.mapper.TeacherMapper;
 import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.TeacherService;
+import goodee.gdj58.online.vo.Employee;
 import goodee.gdj58.online.vo.Example;
 import goodee.gdj58.online.vo.Question;
 import goodee.gdj58.online.vo.Teacher;
@@ -183,6 +184,21 @@ public class TeacherController {
 	}
 
 	// ====================== 강사 관련 ========================
+	// pw수정
+	@GetMapping("/teacher/modifyTeacherPw")
+	public String modifyTeacherPw() {
+		return "teacher/modifyTeacherPw";
+	}
+	@PostMapping("/teacher/modifyTeacherPw")
+	public String modifyTeacherPw(HttpSession session
+							, @RequestParam(value="oldPw") String oldPw
+							, @RequestParam(value="newPw") String newPw) {
+		Teacher loginTeacher = (Teacher)session.getAttribute("loginTeacher");
+		System.out.println(loginTeacher.getTeacherNo()+oldPw+newPw);
+		teacherService.updateTeacherPw(loginTeacher.getTeacherNo(), oldPw, newPw);
+		return "redirect:/Home";
+	}
+	
 	// 강사 로그인
 	@GetMapping("/loginTeacher")
 	public String loginTeacher() {

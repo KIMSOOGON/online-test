@@ -21,8 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 public class EmployeeController {
 	@Autowired EmployeeService employeeService;
 	@Autowired IdService idService;
-	
-	// ================= 직원 로그인관련 ====================
+
+	// ============================= 직원 로그인관련 ===============================
 	// pw수정
 	@GetMapping("/employee/modifyEmpPw")
 	public String modifyEmpPw() {
@@ -37,7 +37,6 @@ public class EmployeeController {
 		employeeService.updateEmployeePw(loginEmp.getEmpNo(), oldPw, newPw);
 		return "redirect:/employee/empList";
 	}
-	
 	// 로그인 폼
 	@GetMapping("/loginEmp")
 	public String loginEmp() { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
@@ -54,7 +53,6 @@ public class EmployeeController {
 		session.setAttribute("loginEmp", resultEmp);
 		return "redirect:/employee/empList";
 	}
-	// ============================= 직원 로그인관련 ===============================
 	
 	// ---- 로그인 후에 사용가능한 기능 (삭제 등록) ----
 	

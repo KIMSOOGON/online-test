@@ -7,14 +7,36 @@
 <title></title>
 </head>
 <body>
-	<h1>시험목록</h1>
+	<!-- teacherMenu include (강사로그인시에만 출력)-->
+	<c:if test="${loginTeacher != null}">
+		<div>
+			<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
+		</div>
+	</c:if>
 	
+	<!-- teacherMenu include (직원로그인시에만 출력)-->
+	<c:if test="${loginEmployee != null}">
+		<div>
+			<c:import url="/WEB-INF/view/employee/inc/employeeMenu.jsp"></c:import>
+		</div>
+	</c:if>
+	
+	<!-- teacherMenu include (학생로그인시에만 출력)-->
+	<c:if test="${loginStudent != null}">
+		<div>
+			<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
+		</div>
+	</c:if>
+	
+	<h1>시험목록</h1>
+	<a href="${pageContext.request.contextPath}/Home">HOME</a>
 	<!--
 		강사는 시험등록, 수정, 삭제가능하게끔
 		학생은 시험응시 가능하게끔
 	 -->
-	 
-	<a href="${pageContext.request.contextPath}/teacher/addTest">시험등록</a>
+	<c:if test="${loginTeacher != null && loginStudent == null}">
+		<a href="${pageContext.request.contextPath}/teacher/addTest">시험등록</a>
+	</c:if>
 	<!-- 시험검색 -->
 	<form method="get" action="${pageContext.request.contextPath}/teacher/testList">
 		<select name="rowPerPage">
@@ -39,28 +61,44 @@
 	</form>
 	<table>
 		<tr>
-			<th>번호</th>
-			<th>시험명</th>
-			<th>등록날짜</th>
-			<th>응시</th>
-			<th>삭제</th>
-
-
+			<th>No.</th>
+			<th>Test</th>
+			<th>release date</th>
+			<c:if test="${loginStudent != null && loginTeacher == null}">
+				<th>Try</th>
+			</c:if>
+			<c:if test="${loginTeacher != null && loginStudent == null}">
+				<th>Delete</th>
+			</c:if>
 		</tr>
 		<!-- 시험목록 출력 -->
 		<c:forEach var="t" items="${list}">
 			<tr>
 				<td>${t.testNo}</td>
-				<td>
-					<a href="${pageContext.request.contextPath}/teacher/testOne?testNo=${t.testNo}">${t.testTitle}</a>
-				</td>
+				<c:choose>
+					<c:when test="${loginTeacher != null}">
+						<td>
+							<a href="${pageContext.request.contextPath}/teacher/testOne?testNo=${t.testNo}">${t.testTitle}</a>
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td>
+							${t.testTitle}
+						</td>
+					</c:otherwise>
+				</c:choose>
 				<td>${t.testDate}</td>
-				<td>
-					<a href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">응시</a>
-				</td>
-				<td>
-					<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}">삭제</a>
-				</td>
+				<c:if test="${loginStudent != null && loginTeacher == null}">
+					<td>
+						<a href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">응시</a>
+					</td>
+				</c:if>
+				<c:if test="${loginTeacher != null && loginStudent == null}">
+					
+					<td>
+						<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}">삭제</a>
+					</td>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</table>
