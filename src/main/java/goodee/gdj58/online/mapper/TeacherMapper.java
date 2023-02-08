@@ -30,8 +30,9 @@ public interface TeacherMapper {
 	// Test CRUD + list
 	Test thisTest(int testNo);
 	int insertTest(Test test);
+	int updateTest(Test test);
 	int deleteTest(int testNo);
-	int ttlTestCnt(String searchWord);
+	int ttlTestCnt(Map<String, Object> paramMap);
 	List<Test> selectTestList(Map<String, Object> paramMap);
 	
 	

@@ -155,6 +155,14 @@ public class TeacherController {
 		return "redirect:/testList"; // sendRedirect, CM -> C (C로 다시 redirect)
 	}
 	
+	// 시험 수정
+	@PostMapping("/teacher/modifyTest")
+	public String modifyTest(Test test) {
+		int row = teacherService.modifyTest(test);
+		
+		return "redirect:/teacher/testOne?testNo="+test.getTestNo();
+	}
+	
 	// 시험 삭제
 	@GetMapping("/teacher/removeTest")
 	public String removeTest(@RequestParam(value="testNo") int testNo){
@@ -169,7 +177,8 @@ public class TeacherController {
 								, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
 								, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		// 페이징관련
-		int ttlTestCnt = teacherService.ttlTeaCnt(searchWord);
+		int ttlTestCnt = teacherService.ttlTestCnt(currentPage, rowPerPage, searchWord);
+		log.debug("\u001B[31m"+"ttlTestCnt : "+ttlTestCnt);
 		int lastPage = (int)Math.ceil((double)ttlTestCnt / (double)rowPerPage);
 		int pageCnt =10;
 		int startPage = ((currentPage-1)/pageCnt)*pageCnt + 1;

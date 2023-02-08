@@ -10,7 +10,19 @@
 		column-count:2;
 	}
 </style>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script>
+	$(document).ready(function(){
+		let thisTestLevel = $('#thisTestLevel').val();
+		console.log(thisTestLevel);
+		$('#testLevel').val(thisTestLevel).prop("selected",true);
+		let thisTestTimer = $('#thisTestTimer').val();
+		console.log(thisTestTimer);
+		$('#testTimer').val(thisTestTimer).prop("selected",true);
+	});
+</script>
 </head>
 <body>
 	<c:if test="${loginTeacher != null}">
@@ -18,9 +30,49 @@
 			<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
 		</div>
 	</c:if>
+	<input type="hidden" id="thisTestLevel" value="${thisTest.testLevel}">
+	<input type="hidden" id="thisTestTimer" value="${thisTest.testTimer}">
 	
+	<!-- test 제목/난이도/제한시간 수정 모달창 -->
+	<div id="ex1" class="modal">
+	<form action="${pageContext.request.contextPath}/teacher/modifyTest" method="post">
+	  <p>수정
+	  	<input type="hidden" name="testNo" value="${thisTest.testNo}">
+	  	<input type="text" name="testTitle" value="${thisTest.testTitle}"><br>
+	  	<div>
+			난이도
+			<select id="testLevel" name="testLevel">
+				<option value="★">★</option>
+				<option value="★★">★★</option>
+				<option value="★★★">★★★</option>
+				<option value="★★★★">★★★★</option>
+				<option value="★★★★★">★★★★★</option>
+			</select>
+		</div>
+		<div>
+			제한시간
+			<select id="testTimer" name="testTimer">
+				<option value="20">20분</option>
+				<option value="30">30분</option>
+				<option value="40">40분</option>
+				<option value="60">60분</option>
+				<option value="90">90분</option>
+				<option value="120">120분</option>
+			</select>
+		</div>
+	  </p>
+	  <button type="submit">수정</button>
+  </form>
+  <a href="#" rel="modal:close">닫기</a>
+</div>
+
 	<h1>${thisTest.testTitle}</h1>
-	<p>${thisTest.testDate}</p>
+	<p>
+		난이도 : ${thisTest.testLevel} / 
+		제한시간 : ${thisTest.testTimer}
+		<br>${thisTest.testDate}
+		<br><a href="#ex1" rel="modal:open">수정</a>
+	</p>
 	
 	<!-- 문제추가 (모달로 교체예정) -->
 	<form action="${pageContext.request.contextPath}/teacher/addQuestionExample" method="post">

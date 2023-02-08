@@ -7,4 +7,6 @@ public class Test {
 	private int testNo;
 	private String testTitle;
 	private String testDate;
+	private String testLevel;
+	private int testTimer;
 }

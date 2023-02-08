@@ -75,6 +75,11 @@ public class TeacherService {
 		return teacherMapper.insertTest(test);
 	}
 	
+	// 시험 수정
+	public int modifyTest(Test test) {
+		return teacherMapper.updateTest(test);
+	}
+	
 	// 시험 삭제
 	public int removeTest(int testNo) {
 		return teacherMapper.deleteTest(testNo);
@@ -86,8 +91,13 @@ public class TeacherService {
 	}
 	
 	// 총 시험 갯수
-	public int ttlTestCnt(String searchWord) {
-		return teacherMapper.ttlTestCnt(searchWord);
+	public int ttlTestCnt(int currentPage, int rowPerPage, String searchWord) {
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
+		return teacherMapper.ttlTestCnt(paramMap);
 	}
 		
 	// 시험 목록

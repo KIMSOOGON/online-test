@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 </head>
 <body>
 	<!-- teacherMenu include (강사로그인시에만 출력)-->
@@ -89,8 +91,35 @@
 				</c:choose>
 				<td>${t.testDate}</td>
 				<c:if test="${loginStudent != null && loginTeacher == null}">
+				<script>
+					$(document).ready(function(){
+						$modal${t.testNo} = $('.modal${t.testNo}');
+						$modal${t.testNo}.hide();
+						$('.modal--open${t.testNo}').click(function(){
+						  $modal${t.testNo}.show();
+						  return false;
+						});
+						$('.modal--close${t.testNo}').click(function(){
+						  $modal${t.testNo}.hide();
+						});
+					});
+				</script>
 					<td>
-						<a href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">응시</a>
+						<div class="container">
+						  <button type="button" value="open" class="btn modal--open${t.testNo}">응시</button>
+						</div>
+				<div class="modal${t.testNo}">
+				  <div class="screen">
+				    <div class="layerpop">
+				      <p class="layerpop__container">
+				      난이도 : ${t.testLevel}<br>
+						20문항 / 제한시간 : ${t.testTimer}분<br>
+						<a href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">문제풀기</a>
+				      </p>
+				      <button type="button" value="close" class="btn modal--close${t.testNo}">Close</button>
+				    </div>
+				  </div>
+				</div>
 					</td>
 				</c:if>
 				<c:if test="${loginTeacher != null && loginStudent == null}">
@@ -102,7 +131,11 @@
 			</tr>
 		</c:forEach>
 	</table>
+
 	
+	
+	
+
 	<!-- 페이징 -->
 	<div>
 		<a href="${pageContext.request.contextPath}/testList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23EA</a>

@@ -129,6 +129,8 @@
 			test_no testNo
 			, test_title testTitle
 			, test_date testDate
+			, test_level testLevel
+			, test_timer testTimer
 		FROM test
 		WHERE test_no = #{testNo}
 	</select>
@@ -138,11 +140,25 @@
 		INSERT INTO test (
 			test_title
 			, test_date
+			, test_level
+			, test_timer
 		) VALUES (
 			#{testTitle}
 			, CURDATE()
+			, #{testLevel}
+			, #{testTimer}
 		)
 	</insert>
+	
+	<!-- TEST 수정 -->
+	<update id="updateTest"
+		parameterType="goodee.gdj58.online.vo.Test">
+		UPDATE test
+		SET test_title = #{testTitle}
+			, test_level = #{testLevel}
+			, test_Timer = #{testTimer}
+		WHERE test_no = #{testNo}
+	</update>
 	
 	<!-- TEST 삭제 -->
 	<delete id="deleteTest" parameterType="int">
@@ -160,6 +176,8 @@
 				test_title LIKE CONCAT('%',#{searchWord},'%')
 			</if>
 		</where>
+		ORDER BY test_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- TEST LIST -->
@@ -170,6 +188,8 @@
 			test_no testNo
 			, test_title testTitle
 			, test_date testDate
+			, test_level testLevel
+			, test_timer testTimer
 		FROM test
 		<where> <!-- 검색값이 있을 경우 where태그 추가 -->
 			<if test="searchWord != null || searchWord != ''">
