@@ -100,13 +100,19 @@ public class TeacherService {
 		return teacherMapper.ttlTestCnt(paramMap);
 	}
 		
+	// 최근 5개 시험목록
+	public List<Test> getLatestTestList() {
+		return teacherMapper.selectLatestTestList();
+	}
+	
 	// 시험 목록
-	public List<Test> getTestList(int currentPage, int rowPerPage, String searchWord) {
+	public List<Test> getTestList(int currentPage, int rowPerPage, String searchWord, String testLevel) {
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("searchWord", searchWord);
+		paramMap.put("testLevel", testLevel);
 		return teacherMapper.selectTestList(paramMap);
 	}
 	

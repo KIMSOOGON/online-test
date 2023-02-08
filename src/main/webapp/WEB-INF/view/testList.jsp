@@ -6,29 +6,16 @@
 <meta charset="UTF-8">
 <title></title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
+<script>
+	$(document).ready(function(){
+		let thisTestLevel = $('#thisTestLevel').val();
+		console.log(thisTestLevel);
+		$('#testLevel').val(thisTestLevel).prop("selected",true);
+	});
+</script>
 </head>
 <body>
-	<!-- teacherMenu include (강사로그인시에만 출력)-->
-	<c:if test="${loginTeacher != null}">
-		<div>
-			<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
-		</div>
-	</c:if>
-	
-	<!-- teacherMenu include (직원로그인시에만 출력)-->
-	<c:if test="${loginEmployee != null}">
-		<div>
-			<c:import url="/WEB-INF/view/employee/inc/employeeMenu.jsp"></c:import>
-		</div>
-	</c:if>
-	
-	<!-- teacherMenu include (학생로그인시에만 출력)-->
-	<c:if test="${loginStudent != null}">
-		<div>
-			<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
-		</div>
-	</c:if>
+	<input type="hidden" id="thisTestLevel" value="${thisTestLevel}">
 	
 	<h1>시험목록</h1>
 	<a href="${pageContext.request.contextPath}/Home">HOME</a>
@@ -57,6 +44,14 @@
 				<option value="10">10</option>
 				<option value="20" selected="selected">20</option>
 			</c:if>
+		</select>
+		<select id="testLevel" name="testLevel" placeholder="난이도">
+			<option value="" disabled selected>난이도</option>
+			<option value="★">★</option>
+			<option value="★★">★★</option>
+			<option value="★★★">★★★</option>
+			<option value="★★★★">★★★★</option>
+			<option value="★★★★★">★★★★★</option>
 		</select>
 		<input type="text" name="searchWord" placeholder="시험명을 검색하세요" value="${searchWord}">
 		<button type="submit">검색</button>

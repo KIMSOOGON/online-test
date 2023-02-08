@@ -31,37 +31,24 @@
 <title></title>
 </head>
 <body>
+	<!-- 필터에 걸러져 온 경우 alert 출력 -->
+	<c:if test="${restrictedMsg != null}">
+		<script>
+			alert('권한이 없습니다. 로그인부터 해주세요.');
+		</script>
+	</c:if>
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
         	<div>
-        		<c:import url="/WEB-INF/view/homeMenu.jsp"></c:import>
+        		<c:import url="/WEB-INF/view/inc/topMenu.jsp"></c:import>
         	</div>
-		        	<!-- teacherMenu include (강사로그인시에만 출력)-->
-			<c:if test="${loginTeacher != null}">
-				<div>
-					<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
-				</div>
-			</c:if>
-			
-			<!-- teacherMenu include (직원로그인시에만 출력)-->
-			<c:if test="${loginEmployee != null}">
-				<div>
-					<c:import url="/WEB-INF/view/employee/inc/employeeMenu.jsp"></c:import>
-				</div>
-			</c:if>
-			
-			<!-- teacherMenu include (학생로그인시에만 출력)-->
-			<c:if test="${loginStudent != null}">
-				<div>
-					<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
-				</div>
-			</c:if>
+		        	
         	
-                   <div class="pcoded-main-container">
+                 <div class="pcoded-main-container">
                 <div class="pcoded-wrapper"> 
                 <div>
-                	<c:import url="/WEB-INF/view/homeMenu1.jsp"></c:import>
+                	<c:import url="/WEB-INF/view/inc/sideMenu.jsp"></c:import>
                 </div>
                     <!-- 홈화면 -->
                     <div class="pcoded-content">
@@ -71,8 +58,10 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">세상에 존재하는 모든 시험 모음 사이트</h5>
-                                            <p class="m-b-0">All Test Exam in the World</p>
+                                            <h5 class="m-b-10">(VVIP) 1급기밀 문제지 저장소</h5>
+                                            <p class="m-b-0">연 회비 단돈 50,000,000 $ 에 1급기밀 문제지를 풀 수 있습니다.
+                                            	<br>모든 강사 및 학생은 1급 프리미엄으로 관리되고 있습니다.
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -215,7 +204,7 @@
                                                             </div>
                                                             <div class="col-9 cst-cont">
                                                                 <h5>4000+</h5>
-                                                                <p class="m-b-0">Ratings Received</p>
+                                                                <p class="m-b-0">평균 점수</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -228,7 +217,7 @@
                                                             </div>
                                                             <div class="col-9 cst-cont">
                                                                 <h5>17</h5>
-                                                                <p class="m-b-0">Achievements</p>
+                                                                <p class="m-b-0">응시한 시험 수</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -241,10 +230,10 @@
                                             <!-- order-visitor end -->
 
                                             <!--  sale analytics start -->
-                                            <div class="col-xl-6 col-md-12">
+                                            <div class="col-md-12">
                                                 <div class="card table-card">
                                                     <div class="card-header">
-                                                        <h5>Member’s performance</h5>
+                                                        <h5>Latest Exam List</h5>
                                                         <div class="card-header-right">
                                                             <ul class="list-unstyled card-option">
                                                                 <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -259,62 +248,23 @@
                                                         <div class="table-responsive">
                                                             <table class="table table-hover m-b-0 without-header">
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="d-inline-block align-middle">
-                                                                                <img src="assets/images/avatar-4.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                                                                <div class="d-inline-block">
-                                                                                    <h6>Shirley Hoe</h6>
-                                                                                    <p class="text-muted m-b-0">Sales executive , NY</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="text-right">
-                                                                            <h6 class="f-w-700">$78.001<i class="fas fa-level-down-alt text-c-red m-l-10"></i></h6>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="d-inline-block align-middle">
-                                                                                <img src="assets/images/avatar-2.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                                                                <div class="d-inline-block">
-                                                                                    <h6>James Alexander</h6>
-                                                                                    <p class="text-muted m-b-0">Sales executive , EL</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="text-right">
-                                                                            <h6 class="f-w-700">$89.051<i class="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="d-inline-block align-middle">
-                                                                                <img src="assets/images/avatar-4.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                                                                <div class="d-inline-block">
-                                                                                    <h6>Shirley Hoe</h6>
-                                                                                    <p class="text-muted m-b-0">Sales executive , NY</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="text-right">
-                                                                            <h6 class="f-w-700">$89.051<i class="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="d-inline-block align-middle">
-                                                                                <img src="assets/images/avatar-2.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                                                                <div class="d-inline-block">
-                                                                                    <h6>Nick Xander</h6>
-                                                                                    <p class="text-muted m-b-0">Sales executive , EL</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="text-right">
-                                                                            <h6 class="f-w-700">$89.051<i class="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
-                                                                        </td>
-                                                                    </tr>
+                                                                	<c:forEach var="t" items="${list}">
+	                                                                    <tr>
+	                                                                        <td>
+	                                                                            <div class="d-inline-block align-middle">
+	                                                                                <div class="d-inline-block">
+	                                                                                    <h6>${t.testTitle}</h6>
+	                                                                                    <p class="text-muted m-b-0">출제일 : ${t.testDate}
+	                                                                                    	<br>난이도 : ${t.testLevel}
+	                                                                                    </p>
+	                                                                                </div>
+	                                                                            </div>
+	                                                                        </td>
+	                                                                        <td class="text-right">
+	                                                                            <h6 class="f-w-700">${t.testTimer}분</h6>
+	                                                                        </td>
+	                                                                    </tr>
+                                                                    </c:forEach>
                                                                 </tbody>
                                                             </table>
 
@@ -322,73 +272,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-6 col-md-12">
-                                                <div class="row">
-                                                    <!-- sale card start -->
-
-                                                    <div class="col-md-6">
-                                                        <div class="card text-center order-visitor-card">
-                                                            <div class="card-block">
-                                                                <h6 class="m-b-0">Total Subscription</h6>
-                                                                <h4 class="m-t-15 m-b-15"><i class="fa fa-arrow-down m-r-15 text-c-red"></i>7652</h4>
-                                                                <p class="m-b-0">48% From Last 24 Hours</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="card text-center order-visitor-card">
-                                                            <div class="card-block">
-                                                                <h6 class="m-b-0">Order Status</h6>
-                                                                <h4 class="m-t-15 m-b-15"><i class="fa fa-arrow-up m-r-15 text-c-green"></i>6325</h4>
-                                                                <p class="m-b-0">36% From Last 6 Months</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="card bg-c-red total-card">
-                                                            <div class="card-block">
-                                                                <div class="text-left">
-                                                                    <h4>489</h4>
-                                                                    <p class="m-0">Total Comment</p>
-                                                                </div>
-                                                                <span class="label bg-c-red value-badges">15%</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="card bg-c-green total-card">
-                                                            <div class="card-block">
-                                                                <div class="text-left">
-                                                                    <h4>$5782</h4>
-                                                                    <p class="m-0">Income Status</p>
-                                                                </div>
-                                                                <span class="label bg-c-green value-badges">20%</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="card text-center order-visitor-card">
-                                                            <div class="card-block">
-                                                                <h6 class="m-b-0">Unique Visitors</h6>
-                                                                <h4 class="m-t-15 m-b-15"><i class="fa fa-arrow-down m-r-15 text-c-red"></i>652</h4>
-                                                                <p class="m-b-0">36% From Last 6 Months</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="card text-center order-visitor-card">
-                                                            <div class="card-block">
-                                                                <h6 class="m-b-0">Monthly Earnings</h6>
-                                                                <h4 class="m-t-15 m-b-15"><i class="fa fa-arrow-up m-r-15 text-c-green"></i>5963</h4>
-                                                                <p class="m-b-0">36% From Last 6 Months</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- sale card end -->
-                                                </div>
-                                            </div>
-
-                                            <!--  sale analytics end -->
+                                       
 
                                             <!-- Project statustic start -->
                                             <div class="col-xl-12">

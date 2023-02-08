@@ -180,6 +180,19 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!-- 최근 5개 TEST -->
+	<select id="selectLatestTestList" resultType="goodee.gdj58.online.vo.Test">
+		SELECT
+			test_no testNo
+			, test_title testTitle
+			, test_date testDate
+			, test_level testLevel
+			, test_timer testTimer
+		FROM test
+		ORDER BY test_no DESC
+		LIMIT 0, 5
+	</select>
+	
 	<!-- TEST LIST -->
 	<select id="selectTestList"
 		resultType="goodee.gdj58.online.vo.Test"
@@ -194,6 +207,9 @@
 		<where> <!-- 검색값이 있을 경우 where태그 추가 -->
 			<if test="searchWord != null || searchWord != ''">
 				test_title LIKE CONCAT('%',#{searchWord},'%')
+				<if test="testLevel != ''">
+				AND test_level = #{testLevel}
+				</if>
 			</if>
 		</where>
 		ORDER BY test_no DESC

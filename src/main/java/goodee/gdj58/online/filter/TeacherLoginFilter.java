@@ -20,15 +20,16 @@ public class TeacherLoginFilter implements Filter {
     @Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	
-    	log.debug("\u001B[31m"+"EmpLoginFilter(강사 로그인 확인 중)");
+    	log.debug("\u001B[31m"+"TeacherLoginFilter(강사 로그인 확인 중)");
     	
     	if(request instanceof HttpServletRequest) {
     		HttpServletRequest req = (HttpServletRequest)request;
     		HttpSession session = req.getSession();
     		
-    		// employee항목 사용전 로그인부터
+    		// teacher항목 사용전 로그인부터
     		if(session.getAttribute("loginTeacher") == null) {
-    			((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginTeacher");
+    			String teacherMsg = "restricted access"; // return 문구
+    			((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginTeacher?teacherMsg="+teacherMsg);
     			return;
     		}
     	} else {

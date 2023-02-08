@@ -175,7 +175,8 @@ public class TeacherController {
 	public String testList(Model model
 								, @RequestParam(value="currentPage", defaultValue="1") int currentPage
 								, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
-								, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
+								, @RequestParam(value="searchWord", defaultValue="") String searchWord
+								, @RequestParam(value="testLevel", defaultValue="") String testLevel) {
 		// 페이징관련
 		int ttlTestCnt = teacherService.ttlTestCnt(currentPage, rowPerPage, searchWord);
 		log.debug("\u001B[31m"+"ttlTestCnt : "+ttlTestCnt);
@@ -186,8 +187,9 @@ public class TeacherController {
 		if(endPage > lastPage) {
 			endPage = lastPage;
 		}
-		List<Test> list = teacherService.getTestList(currentPage, rowPerPage, searchWord);
+		List<Test> list = teacherService.getTestList(currentPage, rowPerPage, searchWord, testLevel);
 		model.addAttribute("list", list);
+		model.addAttribute("thisTestLevel", testLevel);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("searchWord", searchWord);
@@ -216,7 +218,10 @@ public class TeacherController {
 	
 	// 강사 로그인
 	@GetMapping("/loginTeacher")
-	public String loginTeacher() {
+	public String loginTeacher(Model model, @RequestParam(value="teacherMsg", defaultValue="") String teacherMsg) {
+		if(!teacherMsg.equals("")) { // 필터에서 걸러져 teacherMsg를 받은 경우
+			model.addAttribute("teacherMsg", teacherMsg);
+		}
 		return "teacher/loginTeacher";
 	}
 	@PostMapping("/loginTeacher")
