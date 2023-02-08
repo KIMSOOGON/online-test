@@ -51,7 +51,7 @@ public class EmployeeController {
 			return "redirect:/loginEmp";
 		}
 		session.setAttribute("loginEmp", resultEmp);
-		return "redirect:/employee/empList";
+		return "redirect:/Home";
 	}
 	
 	// ---- 로그인 후에 사용가능한 기능 (삭제 등록) ----

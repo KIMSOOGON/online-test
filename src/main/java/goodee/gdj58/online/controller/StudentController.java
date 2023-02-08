@@ -131,7 +131,10 @@ public class StudentController {
 	
 	// 로그인 폼
 	@GetMapping("/loginStudent")
-	public String loginEmp() { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
+	public String loginEmp(Model model, @RequestParam(value="returnMsg", defaultValue="") String returnMsg) { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
+		if(returnMsg != "") { // 필터에서 걸러져 returnMsg를 받은 경우
+			model.addAttribute("returnMsg", returnMsg);
+		}
 		return "student/loginStudent";
 	}
 	// 로그인 액션

@@ -9,6 +9,13 @@
 <body>
 	<!-- 로그인 화면 (로그인 전) -->
 	<c:if test="${loginStudent == null}">
+		<!-- 필터에 걸러져 온 경우 alert 출력 -->
+		<c:if test="${returnMsg != null}">
+			<script>
+				alert('학생 로그인 먼저 해주세요.');
+			</script>
+		</c:if>
+		
 		<h1>학생로그인</h1>
 		<a href="${pageContext.request.contextPath}/loginEmp">직원</a>
 		<a href="${pageContext.request.contextPath}/loginTeacher">강사</a>

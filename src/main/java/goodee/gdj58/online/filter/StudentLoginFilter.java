@@ -26,9 +26,10 @@ public class StudentLoginFilter implements Filter {
     		HttpServletRequest req = (HttpServletRequest)request;
     		HttpSession session = req.getSession();
     		
-    		// employee항목 사용전 로그인부터
+    		// student항목 사용전 학생로그인부터
     		if(session.getAttribute("loginStudent") == null) {
-    			((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginStudent");
+    			String returnMsg = "restricted access"; // return 문구 
+    			((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginStudent?returnMsg="+returnMsg);
     			return;
     		}
     	} else {
