@@ -40,6 +40,8 @@
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
+        	
+        	<!-- Top Menu Bar include -->
         	<div>
         		<c:import url="/WEB-INF/view/inc/topMenu.jsp"></c:import>
         	</div>
@@ -47,6 +49,7 @@
         	
                  <div class="pcoded-main-container">
                 <div class="pcoded-wrapper"> 
+                <!-- Side Menu Bar include -->
                 <div>
                 	<c:import url="/WEB-INF/view/inc/sideMenu.jsp"></c:import>
                 </div>

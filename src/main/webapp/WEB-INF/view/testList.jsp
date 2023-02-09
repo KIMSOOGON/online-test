@@ -45,7 +45,7 @@
 				<option value="20" selected="selected">20</option>
 			</c:if>
 		</select>
-		<select id="testLevel" name="testLevel" placeholder="난이도">
+		<select id="testLevel" name="testLevel">
 			<option value="" disabled selected>난이도</option>
 			<option value="★">★</option>
 			<option value="★★">★★</option>

@@ -7,10 +7,7 @@
 <title></title>
 </head>
 <body>
-	<!-- empMenu include -->
-	<div>
-		<c:import url="/WEB-INF/view/employee/inc/empMenu.jsp"></c:import>
-	</div>
+
 	
 	<h1>Student List</h1>
 	<a href="${pageContext.request.contextPath}/employee/addStudent">학생등록</a>

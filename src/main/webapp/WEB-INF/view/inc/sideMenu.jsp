@@ -70,9 +70,23 @@
 	                        </a>
 	                    </li>
 	                    <li class=" ">
+	                        <a href="${pageContext.request.contextPath}/employee/addEmp" class="waves-effect waves-dark">
+	                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+	                            <span class="pcoded-mtext">직원등록</span>
+	                            <span class="pcoded-mcaret"></span>
+	                        </a>
+	                    </li>
+	                    <li class=" ">
 	                        <a href="${pageContext.request.contextPath}/employee/teacherList" class="waves-effect waves-dark">
 	                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 	                            <span class="pcoded-mtext">강사목록</span>
+	                            <span class="pcoded-mcaret"></span>
+	                        </a>
+	                    </li>
+	                    <li class=" ">
+	                        <a href="${pageContext.request.contextPath}/employee/addTeacher" class="waves-effect waves-dark">
+	                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+	                            <span class="pcoded-mtext">강사등록</span>
 	                            <span class="pcoded-mcaret"></span>
 	                        </a>
 	                    </li>
@@ -80,6 +94,13 @@
 	                        <a href="${pageContext.request.contextPath}/employee/studentList" class="waves-effect waves-dark">
 	                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 	                            <span class="pcoded-mtext">학생목록</span>
+	                            <span class="pcoded-mcaret"></span>
+	                        </a>
+	                    </li>
+	                    <li class=" ">
+	                        <a href="${pageContext.request.contextPath}/employee/addStudent" class="waves-effect waves-dark">
+	                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+	                            <span class="pcoded-mtext">학생등록</span>
 	                            <span class="pcoded-mcaret"></span>
 	                        </a>
 	                    </li>

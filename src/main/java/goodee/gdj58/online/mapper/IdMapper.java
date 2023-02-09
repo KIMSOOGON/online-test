@@ -4,5 +4,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IdMapper {
-	String selectIdCheck(String id);
+	// 사용가능한 아이디면 null, 불가능하면 아이디
+	public String selectIdCheck(String id);
 }
