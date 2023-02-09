@@ -3,20 +3,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title></title>
-<style>
-	small {
-		color:red;
-	}
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		small {
+			color:red;
+		}
+		
+	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+	<meta name="author" content="Codedthemes" />
+	<!-- Favicon icon -->
+	
+	<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+	<!-- waves.css -->
+	<link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
-<body>
+<body themebg-pattern="theme1">
 	<h1>강사추가</h1>
 	<form id="addForm" action="${pageContext.request.contextPath}/employee/addTeacher" method="post">
 		<div><!-- 아이디 -->
