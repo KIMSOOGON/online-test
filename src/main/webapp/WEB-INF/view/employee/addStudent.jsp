@@ -118,7 +118,7 @@
                                             <label>
                                                 <input type="checkbox" id="agreeBox">
                                                 <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                <span class="text-inverse">충성을 다할것을 굳게 맹세합니까?</span>
+                                                <span class="text-inverse">로봇이 아닙니다.</span>
                                             </label>
                                         </div>
                                     </div>

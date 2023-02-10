@@ -18,60 +18,148 @@
 	<meta name="author" content="Codedthemes" />
 	<!-- Favicon icon -->
 	
-	<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
 	<!-- Google font-->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
 	<!-- Required Fremwork -->
-	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap/css/bootstrap.min.css">
 	<!-- waves.css -->
-	<link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/pages/waves/css/waves.min.css" type="text/css" media="all">
 	<!-- themify-icons line icon -->
-	<link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/icon/themify-icons/themify-icons.css">
 	<!-- ico font -->
-	<link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/icon/icofont/css/icofont.css">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/icon/font-awesome/css/font-awesome.min.css">
 	<!-- Style.css -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body themebg-pattern="theme1">
-	<h1>강사추가</h1>
-	<form id="addForm" action="${pageContext.request.contextPath}/employee/addTeacher" method="post">
-		<div><!-- 아이디 -->
-			<!-- 아이디 중복확인 modal -->
-			<div id="ex1" class="modal">
-				<div>
-					<input type="text" id="checkId" placeholder="id">
-					<button type="button" id="ckBtn">중복확인</button>
-					<a href="#" rel="modal:close" id="modalClose">닫기</a>
-				</div>
-				<div>
-					<small id="checkIdMsg"></small>
-				</div>
-			</div>
-			<input type="text" name="teacherId" id="id" readonly="readonly" placeholder="id">
-			<a href="#ex1" rel="modal:open">중복확인</a>
-		</div>
-		<div><!-- 패스워드 -->
-			<input type="password" id="pw" name="teacherPw" placeholder="password">
-			<small id="pwMsg"></small>
-		</div>
-		<div><!-- 패스워드 확인 -->
-			<input type="password" id="pwCk" placeholder="password check">
-			<small id="pwCkMsg"></small>
-		</div>
-		<div><!-- 이름 -->
-			<input type="text" id="name" name="teacherName" placeholder="name">
-			<small id="nameMsg"></small>
-		</div>
-		<div>
-			<button type="button" id="addBtn">등록</button>
-		</div>
-	</form>
+	<section class="login-block">
+        <!-- Container-fluid starts -->
+        <div class="container-fluid">
+			<div class="row">
+                <div class="col-sm-12">
+                    <form id="addForm" action="${pageContext.request.contextPath}/employee/addTeacher" method="post" class="md-float-material form-material">
+                        <div class="text-center">
+                            <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo.png">
+                        </div>
+                        <div class="auth-box card">
+							<div class="card-block">
+                                <div class="row m-b-20">
+                                    <div class="col-md-12">
+                                        <h3 class="text-center txt-primary">강사 등록</h3>
+                                    </div>
+                                </div>
+                                
+                                <!-- 아이디 -->
+								<div class="row">
+									<div class="col-sm-9">
+										<div class="form-group form-primary">
+		                                    <input type="text" name="teacherId" id="id" class="form-control" readonly="readonly" placeholder="id를 입력하세요">
+		                                    <span class="form-bar"></span>
+										</div>
+									</div>
+	                                <!-- 중복확인 -->
+                                    <div class="col-sm-3">
+                                    	<div class="form-group form-primary">
+                                  		  <a href="#ex1" rel="modal:open" class="btn btn-sm btn-outline-success">중복확인</a>
+		                                    
+										</div>
+									</div>
+                                </div>
+								<!-- modal -->
+								<div id="ex1" class="modal">
+									<div class="form-group form-primary">
+										<input type="text" id="checkId" placeholder="id" class="form-control" style="width:300px">
+										<button class="mt-3 btn btn-sm btn-outline-primary" type="button" id="ckBtn">중복확인</button>
+										<a class="ml-3 mt-3 btn btn-outline-danger btn-sm" style="float:right" href="#" rel="modal:close" id="modalClose">닫기</a>
+									</div>
+									<div>
+										<small id="checkIdMsg"></small>
+									</div>
+								</div>
+								
+								<!-- 이름 -->
+                                <div class="form-group form-primary">
+                                    <input type="text" id="name" name="teacherName" class="form-control">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">이름을 입력하세요</label>
+                                    <small id="nameMsg"></small>
+                                </div>
+                                
+                                <!-- 패스워드 -->
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-primary">
+                                            <input type="password" id="pw" name="teacherPw" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">비밀번호</label>
+                                            <small id="pwMsg"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-primary">
+                                            <input type="password" id="pwCk" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">비밀번호 확인</label>
+                                            <small id="pwCkMsg"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 서약 -->
+                                <div class="row m-t-25 text-left">
+                                    <div class="col-md-12">
+                                        <div class="checkbox-fade fade-in-primary">
+                                            <label>
+                                                <input type="checkbox" id="agreeBox">
+                                                <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                                <span class="text-inverse">로봇이 아닙니다.</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 제출 -->
+                                <div class="row m-t-30">
+                                    <div class="col-md-12">
+                                        <button id="addBtn" type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Register</button>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <p class="text-inverse text-left m-b-0">Thank you.</p>
+                                        <p class="text-inverse text-left"><a href="${pageContext.request.contextPath}/Home"><b>Back to website</b></a></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <img src="${pageContext.request.contextPath}/resources/images/auth/Logo-small-bottom.png" alt="small-logo.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- end of col-sm-12 -->
+            </div>
+            <!-- end of row -->
+        </div>
+        <!-- end of container-fluid -->
+    </section>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.min.js "></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-ui/jquery-ui.min.js "></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/popper.js/popper.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/js/bootstrap.min.js "></script>
+	<!-- waves js -->
+	<script src="${pageContext.request.contextPath}/resources/pages/waves/js/waves.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common-pages.js"></script>
 </body>
 <script>
 	//정규식
@@ -146,17 +234,16 @@
 	// 최종 버튼으로 등록하기 -> form 실행
 	$('#addBtn').click(function(){
 		if(idCk && pwCk && pwCkCk && nameCk) {
-			$('#addForm').submit();
+			if($('#agreeBox:checked').length < 1) {
+				alert('맹세에 체크해주세요');
+				return;
+			} else {
+				$('#addForm').submit();	
+			}
 		} else {
 			alert('모든 항목을 채워주세요.');
 			return;
 		}
-	});
-	
-	$('#addBtn').click(function(){
-		// 유효성 검사
-		
-		
 	});
 </script>
 </html>

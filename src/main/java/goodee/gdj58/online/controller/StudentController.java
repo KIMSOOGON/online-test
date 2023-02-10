@@ -131,10 +131,16 @@ public class StudentController {
 	
 	// 로그인 폼
 	@GetMapping("/loginStudent")
-	public String loginEmp(Model model, @RequestParam(value="returnMsg", defaultValue="") String returnMsg) { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
+	public String loginEmp(Model model
+							, @RequestParam(value="returnMsg", defaultValue="") String returnMsg
+							, @RequestParam(value="failLoginStu",defaultValue="") String failLoginStu) { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
 		log.debug("\u001B[31m"+"returnMsg : "+returnMsg);
 		if(!returnMsg.equals("")) { // 필터에서 걸러져 returnMsg를 받은 경우
 			model.addAttribute("returnMsg", returnMsg);
+		}
+		if(!failLoginStu.equals("")) {
+			log.debug("\u001B[31m 로그인실패 : "+failLoginStu);
+			model.addAttribute("failLoginStu",failLoginStu);
 		}
 		return "student/loginStudent";
 	}
@@ -143,7 +149,8 @@ public class StudentController {
 	public String loginEmp(HttpSession session, Student student) { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
 		Student resultStudent = studentService.login(student);
 		if(resultStudent == null) { // 로그인 실패
-			return "redirect:/loginStudent";
+			String failLoginStu = "failLoginStu";
+			return "redirect:/loginStudent?failLoginStu="+failLoginStu;
 		}
 		session.setAttribute("loginStudent", resultStudent);
 		return "redirect:/Home";

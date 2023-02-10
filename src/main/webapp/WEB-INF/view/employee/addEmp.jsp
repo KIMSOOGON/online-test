@@ -9,7 +9,6 @@
 		small {
 			color:red;
 		}
-		
 	</style>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -53,7 +52,7 @@
 							<div class="card-block">
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
-                                        <h3 class="text-center txt-primary">Add Employee</h3>
+                                        <h3 class="text-center txt-primary">직원 등록</h3>
                                     </div>
                                 </div>
                                 
@@ -61,7 +60,7 @@
 								<div class="row">
 									<div class="col-sm-9">
 										<div class="form-group form-primary">
-		                                    <input type="text" name="empId" id="id" class="form-control" readonly="readonly" placeholder="Choose Employee Id">
+		                                    <input type="text" name="empId" id="id" class="form-control" readonly="readonly" placeholder="id를 입력해주세요">
 		                                    <span class="form-bar"></span>
 										</div>
 									</div>
@@ -120,7 +119,7 @@
                                             <label>
                                                 <input type="checkbox" id="agreeBox">
                                                 <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                <span class="text-inverse">충성을 다할것을 굳게 맹세합니까?</span>
+                                                <span class="text-inverse">로봇이 아닙니다.</span>
                                             </label>
                                         </div>
                                     </div>

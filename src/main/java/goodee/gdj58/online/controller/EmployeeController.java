@@ -39,8 +39,14 @@ public class EmployeeController {
 	}
 	// 로그인 폼
 	@GetMapping("/loginEmp")
-	public String loginEmp() { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
+	public String loginEmp(Model model
+							, @RequestParam(value="failLogin",defaultValue="") String failLogin) { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
 		log.debug("loginEmp Form");
+		log.debug("\u001B[31m failLogin : "+failLogin);
+		if(!failLogin.equals("")) {
+			log.debug("\u001B[31m 로그인실패 : "+failLogin);
+			model.addAttribute("failLogin",failLogin);
+		}
 		return "employee/loginEmp";
 	}
 	// 로그인 액션
@@ -48,7 +54,9 @@ public class EmployeeController {
 	public String loginEmp(HttpSession session, Employee emp) { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
 		Employee resultEmp = employeeService.login(emp);
 		if(resultEmp == null) { // 로그인 실패
-			return "redirect:/loginEmp";
+			String failLogin = "failLogin";
+			log.debug("\u001B[31m"+"로그인실패"+failLogin);
+			return "redirect:/loginEmp?failLogin="+failLogin;
 		}
 		session.setAttribute("loginEmp", resultEmp);
 		return "redirect:/Home";

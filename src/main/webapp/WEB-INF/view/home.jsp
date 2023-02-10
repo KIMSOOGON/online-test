@@ -62,8 +62,7 @@
                                     <div class="col-md-8">
                                         <div class="page-header-title">
                                             <h5 class="m-b-10">(VVIP) 1급기밀 문제지 저장소</h5>
-                                            <p class="m-b-0">연 회비 단돈 50,000,000 $ 에 1급기밀 문제지를 풀 수 있습니다.
-                                            	<br>모든 강사 및 학생은 1급 프리미엄으로 관리되고 있습니다.
+                                            <p class="m-b-0">엄선된 회원들만 문제지를 풀 수 있습니다.
                                             </p>
                                         </div>
                                     </div>

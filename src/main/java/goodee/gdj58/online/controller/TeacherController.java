@@ -218,9 +218,15 @@ public class TeacherController {
 	
 	// 강사 로그인
 	@GetMapping("/loginTeacher")
-	public String loginTeacher(Model model, @RequestParam(value="teacherMsg", defaultValue="") String teacherMsg) {
+	public String loginTeacher(Model model
+								, @RequestParam(value="teacherMsg", defaultValue="") String teacherMsg
+								, @RequestParam(value="failLoginTea",defaultValue="") String failLoginTea) {
 		if(!teacherMsg.equals("")) { // 필터에서 걸러져 teacherMsg를 받은 경우
 			model.addAttribute("teacherMsg", teacherMsg);
+		}
+		if(!failLoginTea.equals("")) {
+			log.debug("\u001B[31m 로그인실패 : "+failLoginTea);
+			model.addAttribute("failLoginTea",failLoginTea);
 		}
 		return "teacher/loginTeacher";
 	}
@@ -228,7 +234,8 @@ public class TeacherController {
 	public String loginTeacher(HttpSession session, Teacher teacher) {
 		Teacher resultTeacher = teacherService.login(teacher);
 		if(resultTeacher == null) {
-			return "redirect:/loginTeacher";
+			String failLoginTea = "failLoginTea";
+			return "redirect:/loginTeacher?failLoginTea="+failLoginTea;
 		}
 		session.setAttribute("loginTeacher", resultTeacher);
 		return "redirect:/Home";
