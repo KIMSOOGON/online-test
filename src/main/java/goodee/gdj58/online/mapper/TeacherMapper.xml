@@ -168,16 +168,17 @@
 	
 	<!-- 총 test 갯수 -->
 	<select id="ttlTestCnt"
-		parameterType="String"
-		resultType="int">
+		resultType="Integer"
+		parameterType="java.util.Map">
 		SELECT COUNT(*) FROM test
 		<where>
 			<if test="searchWord != null || searchWord != ''">
 				test_title LIKE CONCAT('%',#{searchWord},'%')
+				<if test="testLevel != ''">
+				AND test_level = #{testLevel}
+				</if>
 			</if>
 		</where>
-		ORDER BY test_no DESC
-		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 최근 5개 TEST -->

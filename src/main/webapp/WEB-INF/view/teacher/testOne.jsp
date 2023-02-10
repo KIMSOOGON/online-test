@@ -25,11 +25,7 @@
 </script>
 </head>
 <body>
-	<c:if test="${loginTeacher != null}">
-		<div>
-			<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
-		</div>
-	</c:if>
+
 	<input type="hidden" id="thisTestLevel" value="${thisTest.testLevel}">
 	<input type="hidden" id="thisTestTimer" value="${thisTest.testTimer}">
 	

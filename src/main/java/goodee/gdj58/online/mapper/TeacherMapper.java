@@ -32,7 +32,7 @@ public interface TeacherMapper {
 	int insertTest(Test test);
 	int updateTest(Test test);
 	int deleteTest(int testNo);
-	int ttlTestCnt(Map<String, Object> paramMap);
+	Integer ttlTestCnt(Map<String, Object> paramMap);
 	List<Test> selectLatestTestList(); // 최근 게시된 시험 5개만 select
 	List<Test> selectTestList(Map<String, Object> paramMap);
 	

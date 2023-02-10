@@ -7,10 +7,6 @@
 <title></title>
 </head>
 <body>
-	<!-- 학생 상단 menu -->
-	<div>
-		<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
-	</div>
 	
 	<h1>${loginStudent.studentName}님의 응시한 시험 목록 및 채점결과</h1>
 	

@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
-<title></title>
+	<title>All EXAM HERE</title>
 </head>
 <body>
 	<!-- 필터에 걸러져 온 경우 alert 출력 -->

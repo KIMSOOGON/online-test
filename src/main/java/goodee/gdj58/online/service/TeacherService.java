@@ -91,12 +91,15 @@ public class TeacherService {
 	}
 	
 	// 총 시험 갯수
-	public int ttlTestCnt(int currentPage, int rowPerPage, String searchWord) {
+	public Integer ttlTestCnt(int currentPage, int rowPerPage, String searchWord, String testLevel) {
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		System.out.println("service searchWord : "+searchWord);
+		System.out.println("service testLevel : "+testLevel);
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("searchWord", searchWord);
+		paramMap.put("testLevel", testLevel);
 		return teacherMapper.ttlTestCnt(paramMap);
 	}
 		

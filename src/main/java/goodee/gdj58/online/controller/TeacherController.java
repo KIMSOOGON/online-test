@@ -177,8 +177,12 @@ public class TeacherController {
 								, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
 								, @RequestParam(value="searchWord", defaultValue="") String searchWord
 								, @RequestParam(value="testLevel", defaultValue="") String testLevel) {
+		log.debug("\u001B[31m"+"currentPage : "+currentPage);
+		log.debug("\u001B[31m"+"rowPerPage : "+rowPerPage);
+		log.debug("\u001B[31m"+"searchWord : "+searchWord);
+		log.debug("\u001B[31m"+"testLevel : "+testLevel);
 		// 페이징관련
-		int ttlTestCnt = teacherService.ttlTestCnt(currentPage, rowPerPage, searchWord);
+		Integer ttlTestCnt = teacherService.ttlTestCnt(currentPage, rowPerPage, searchWord, testLevel);
 		log.debug("\u001B[31m"+"ttlTestCnt : "+ttlTestCnt);
 		int lastPage = (int)Math.ceil((double)ttlTestCnt / (double)rowPerPage);
 		int pageCnt =10;
