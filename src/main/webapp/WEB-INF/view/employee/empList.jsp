@@ -31,92 +31,165 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-    <div id="pcoded" class="pcoded">
-       <div class="pcoded-overlay-box"></div>
-       <div class="pcoded-container navbar-wrapper">
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
        	
-       	<!-- Top Menu Bar include -->
-       	<div>
-       		<c:import url="/WEB-INF/view/inc/topMenu.jsp"></c:import>
-       	</div>
-	        	
+	       	<!-- Top Menu Bar include -->
+	       	<div>
+	       		<c:import url="/WEB-INF/view/inc/topMenu.jsp"></c:import>
+	       	</div>
        	
-                <div class="pcoded-main-container">
-               <div class="pcoded-wrapper"> 
-               <!-- Side Menu Bar include -->
-               <div>
-               	<c:import url="/WEB-INF/view/inc/sideMenu.jsp"></c:import>
-               </div>
-	
-	<h1>Employee List</h1>
-	<a href="${pageContext.request.contextPath}/employee/addEmp">사원등록</a>
-	<!-- 사원검색 -->
-	<form method="get" action="${pageContext.request.contextPath}/employee/empList">
-		<select name="rowPerPage">
-			<c:if test="${rowPerPage == 5}">
-				<option value="5" selected="selected">5</option>
-				<option value="10">10</option>
-				<option value="20">20</option>
-			</c:if>
-			<c:if test="${rowPerPage == 10}">
-				<option value="5">5</option>
-				<option value="10" selected="selected">10</option>
-				<option value="20">20</option>
-			</c:if>
-			<c:if test="${rowPerPage == 20}">
-				<option value="5">5</option>
-				<option value="10">10</option>
-				<option value="20" selected="selected">20</option>
-			</c:if>
-		</select>
-		<input type="text" name="searchWord" placeholder="사원 이름을 검색하세요" value="${searchWord}">
-		<button type="submit">검색</button>
-	</form>
-	<c:if test="${searchWord != ''}">
-		'<span style="color:#A81919">${searchWord}</span>' 검색결과, 총 '<span style="color:#A81919">${ttlEmpCnt}</span>'건이 검색되었습니다.  
-	</c:if>
-	<table border="1">
-		<tr>
-			<th>empId</th>
-			<th>empName</th>
-			<th>삭제</th>
-		</tr>
-		<c:forEach var="e" items="${list}">
-			<tr>
-				<td>${e.empId}</td>
-				<td>${e.empName}</td>
-				<td><a href="${pageContext.request.contextPath}/employee/removeEmp?empNo=${e.empNo}">X</a></td>
-			</tr>
-		</c:forEach>
-	</table>
-	
-	<!-- 페이징 -->
-	<div>
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23EA</a>
-		<c:if test="${currentPage > 10}">
-			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${startPage-10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">◀</a>
-		</c:if>
-		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-			<c:choose>
-				<c:when test="${currentPage == i}">
-					<span style="font-weight:bold; color:orange;">${i}</span>
-				</c:when>
-				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">${i}</a>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${(lastPage-startPage) > 10}">
-			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${startPage+10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">▶</a>
-		</c:if>
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${lastPage}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">&#x23E9</a>
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper"> 
+					<!-- Side Menu Bar include -->
+					<div>
+						<c:import url="/WEB-INF/view/inc/sideMenu.jsp"></c:import>
+					</div>
+	               
+					<!-- 메인화면 -->
+					<div class="pcoded-content">
+						<!-- Page-header start -->
+						<div class="page-header">
+							<div class="page-block">
+								<div class="row align-items-center">
+									<div class="col-md-8">
+										<div class="page-header-title">
+											<h5 class="m-b-10">사원 목록</h5>
+											<p class="m-b-0">
+											</p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<ul class="breadcrumb">
+											<li class="breadcrumb-item">
+												<a href="index.html"> <i class="fa fa-home"></i> </a>
+											</li>
+											<li class="breadcrumb-item"><a href="#!">Home</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+								<div class="page-wrapper">
+									<!-- Page-body start -->
+                                    <div class="page-body">
+                                        <!-- Hover table card start -->
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>사원 목록</h5>
+                                                <a class="ml-3 btn btn-sm btn-outline-dark" href="${pageContext.request.contextPath}/employee/addEmp"><i class="ti-plus"></i> 사원등록</a>
+												<!-- 사원검색 -->
+												<form method="get" action="${pageContext.request.contextPath}/employee/empList" class="mt-2 text-center form-material">
+													<div class="form-group form-primary">
+														<select name="rowPerPage">
+															<c:if test="${rowPerPage == 5}">
+																<option value="5" selected="selected">5</option>
+																<option value="10">10</option>
+																<option value="20">20</option>
+															</c:if>
+															<c:if test="${rowPerPage == 10}">
+																<option value="5">5</option>
+																<option value="10" selected="selected">10</option>
+																<option value="20">20</option>
+															</c:if>
+															<c:if test="${rowPerPage == 20}">
+																<option value="5">5</option>
+																<option value="10">10</option>
+																<option value="20" selected="selected">20</option>
+															</c:if>
+														</select>
+														<input type="text" name="searchWord" placeholder="사원 찾기" value="${searchWord}" style="width:400px; background-color:#FFFFE4;" class="form-control ml-1">			
+														<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-search m-r-10"></i></button>
+													</div>
+													
+												</form>
+												<c:if test="${searchWord != ''}">
+													'<big style="color:#A81919">${searchWord}</big>' 검색결과, 총 '<big style="color:#FFEBFE">${ttlEmpCnt}</big>'건이 검색되었습니다.  
+												</c:if>
+
+                                                <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                        <li><i class="fa fa-minus minimize-card"></i></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr style="background-color:#FFFAFF;">
+                                                                <th scope="row">사번</th>
+																<th>ID</th>
+																<th>이름</th>
+																<th>삭제</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <!-- 시험목록 출력 -->
+															<c:forEach var="e" items="${list}">
+																<tr>
+																	<td>${e.empNo}</td>
+																	<td>${e.empId}</td>
+																	<td>${e.empName}</td>
+																	<td><a href="${pageContext.request.contextPath}/employee/removeEmp?empNo=${e.empNo}"><i class="ti-trash"></i></a></td>
+																</tr>
+															</c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                       	</div>
+										<!-- Hover table card end -->
+                               		</div>
+								<!-- Page-body end -->
+								</div>
+							</div>
+							<!-- Main-body end -->
+								
+							<!-- 페이징 -->
+							<div class="container text-center">
+								<nav>
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}"><i class="ti-angle-double-left"></i></a></li>
+										<c:if test="${currentPage > 10}">
+											<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${startPage-10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}"><i class="ti-angle-left"></i></a></li>
+										</c:if>
+										<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+											<c:choose>
+												<c:when test="${currentPage == i}">
+													<li class="page-item"><span style="font-weight:bold; color:orange;"><a class="page-link">${i}</a></span></li>
+												</c:when>
+												<c:otherwise>
+													<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&searchWord=${searchWord}&rowPerPage=${rowPerPage}">${i}</a></li>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+										<c:if test="${(lastPage-startPage) > 10}">
+											<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${startPage+10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}"><i class="ti-angle-right"></i></a></li>
+										</c:if>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${lastPage}&rowPerPage=${rowPerPage}"><i class="ti-angle-double-right"></i></a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	</div>
-	</div>
-	</div>
-	</div>
-	    <!-- Required Jquery -->
+								
+	<!-- Required Jquery -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.min.js "></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-ui/jquery-ui.min.js "></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/popper.js/popper.min.js"></script>
@@ -135,4 +208,4 @@
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js "></script>
 </body>
-</html>
+</html>						

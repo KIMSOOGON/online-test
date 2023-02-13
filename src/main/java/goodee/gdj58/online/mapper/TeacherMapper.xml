@@ -71,6 +71,7 @@
 		SELECT
 			question_no questionNo
 		FROM question
+		WHERE test_no = #{testNo}
 		ORDER BY question_no DESC
 		LIMIT 0,1
 	</select>

@@ -93,7 +93,7 @@
                                             <div class="card-header">
                                                 <h5>시험 목록</h5>
                                                 <c:if test="${loginTeacher != null && loginStudent == null}">
-													<a href="${pageContext.request.contextPath}/teacher/addTest">시험등록</a>
+													<a class="ml-2 btn btn-sm btn-secondary" href="${pageContext.request.contextPath}/teacher/addTest"><i class="ti-plus"></i> 시험등록</a>
 												</c:if>
 												<!-- 시험검색 -->
 												<form method="get" action="${pageContext.request.contextPath}/testList" class="mt-2 text-center form-material">
@@ -208,7 +208,7 @@
 																	<c:if test="${loginTeacher != null && loginStudent == null}">
 																		
 																		<td>
-																			<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}">삭제</a>
+																			<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}"><i class="ti-trash"></i></a>
 																		</td>
 																	</c:if>
 																</tr>
@@ -230,9 +230,9 @@
 							<div class="container text-center">
 								<nav>
 									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/testList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}&testLevel=${thisTestLevel}"><<</a></li>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/testList?currentPage=1&searchWord=${searchWord}&rowPerPage=${rowPerPage}&testLevel=${thisTestLevel}"><i class="ti-angle-double-left"></i></a></li>
 										<c:if test="${currentPage > 10}">
-											<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/testList?currentPage=${startPage-10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}&testLevel=${thisTestLevel}">◀</a></li>
+											<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/testList?currentPage=${startPage-10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}&testLevel=${thisTestLevel}"><i class="ti-angle-left"></i></a></li>
 										</c:if>
 										<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 											<c:choose>
@@ -245,9 +245,9 @@
 											</c:choose>
 										</c:forEach>
 										<c:if test="${(lastPage-startPage) > 10}">
-											<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/testList?currentPage=${startPage+10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}&testLevel=${thisTestLevel}">▶</a></li>
+											<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/testList?currentPage=${startPage+10}&searchWord=${searchWord}&rowPerPage=${rowPerPage}&testLevel=${thisTestLevel}"><i class="ti-angle-right"></i></a></li>
 										</c:if>
-										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/testList?currentPage=${lastPage}&rowPerPage=${rowPerPage}">>></a></li>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/testList?currentPage=${lastPage}&rowPerPage=${rowPerPage}"><i class="ti-angle-double-right"></i></a></li>
 									</ul>
 								</nav>
 							</div>
