@@ -34,18 +34,85 @@
 		.multi{
 			column-count:2;
 		}
+		small {
+			color:red;
+			margin-left:20px;
+		}
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
+			// test수정시, 난이도 및 풀이시간 동적처리
 			let thisTestLevel = $('#thisTestLevel').val();
 			console.log(thisTestLevel);
 			$('#testLevel').val(thisTestLevel).prop("selected",true);
 			let thisTestTimer = $('#thisTestTimer').val();
 			console.log(thisTestTimer);
 			$('#testTimer').val(thisTestTimer).prop("selected",true);
+			
+			// 문제추가시, 유효성체크
+			$('#addBtn').click(function() {
+				// 문제번호 유효성 체크
+				if($('#questionNo').val() == '') {
+					$('#questionNoMsg').text('문제번호를 입력하세요');
+					$('#questionNo').focus();
+					return;
+				} else {
+					$('#questionNoMsg').text('');
+				}
+				
+				// 문제제목 유효성 체크
+				if($('#questionTitle').val() == '') {
+					$('#questionTitleMsg').text('문제내용을 입력하세요');
+					$('#questionTitle').focus();
+					return;
+				} else {
+					$('#questionTitleMsg').text('');
+				}
+				
+				// 선택지 유효성 체크
+				if($('#example1').val() == '') {
+					$('#example1Msg').text('1번 보기를 입력하세요');
+					$('#example1').focus();
+					return;
+				} else {
+					$('#example1Msg').text('');
+				}
+				if($('#example2').val() == '') {
+					$('#example2Msg').text('2번 보기를 입력하세요');
+					$('#example2').focus();
+					return;
+				} else {
+					$('#example2Msg').text('');
+				}
+				if($('#example3').val() == '') {
+					$('#example3Msg').text('3번 보기를 입력하세요');
+					$('#example3').focus();
+					return;
+				} else {
+					$('#example3Msg').text('');
+				}
+				if($('#example4').val() == '') {
+					$('#example4Msg').text('4번 보기를 입력하세요');
+					$('#example4').focus();
+					return;
+				} else {
+					$('#example4Msg').text('');
+				}
+				
+				// 정답체크 radio 유효성
+				if($('.exampleOx:checked').length < 1) {
+					$('#exampleOxMsg').text('정답을 선택해주세요');
+					return;
+				} else {
+					$('#exampleOxMsg').text('');
+				}
+				
+				$('#addForm').submit();	
+			});
 		});
 	</script>
 </head>
@@ -158,16 +225,25 @@
 											</div>
 											<div class="card-block table-border-style">
 												<div class="table-responsive">
-													<form action="${pageContext.request.contextPath}/teacher/addQuestionExample" method="post">
+													<form id="addForm" action="${pageContext.request.contextPath}/teacher/addQuestionExample" method="post">
 														<table class="table table-hover">
 															<!-- 문제 -->
 															<tr>
 																<th style="width:100px;">문제번호</th>
-																<td><input style="width:70px;"type="number" name="questionIdx"></td>
+																<td>
+																	<c:if test="${latestQuestionNo != null}">
+																		<input id="questionNo" style="width:70px;"type="number" name="questionIdx" value="${latestQuestionNo}">
+																	</c:if>
+																	<c:if test="${latestQuestionNo == null}">
+																		<input id="questionNo" style="width:70px;"type="number" name="questionIdx">
+																	</c:if>
+																	<small id="questionNoMsg"></small>
+																</td>
 															</tr>
 															<tr>
 																<td colspan="2">
-																	<textarea rows="5" cols="80" name="questionTitle" placeholder="문제를 입력하세요"></textarea>
+																	<textarea id="questionTitle" rows="5" cols="80" name="questionTitle" placeholder="문제를 입력하세요"></textarea>
+																	<small id="questionTitleMsg"></small>
 																</td>
 															</tr>
 														</table>
@@ -176,39 +252,44 @@
 															<tr>
 																<th style="width:35px;">①</th>
 																<td>
-																	<input type="text" class="exampleTitle" name="exampleTitle" style="width:350px" placeholder="1번 선택지 답을 입력하세요">
+																	<input id="example1" type="text" class="exampleTitle" name="exampleTitle" style="width:350px; margin-right:20px;" placeholder="1번 선택지 답을 입력하세요">
 																	<input type="hidden" class="exampleIdx" name="exampleIdx" value="1">
-																	<input type="radio" class="exampleOx ml-3" name="exampleOx" value="1"> 
+																	<input type="radio" class="exampleOx" name="exampleOx" value="1">
+																	<small id="example1Msg"></small> 
 																</td>
 															</tr>
 															<tr>
 																<th>②</th>
 																<td>
-																	<input type="text" class="exampleTitle" name="exampleTitle" style="width:350px" placeholder="2번 선택지 답을 입력하세요">
+																	<input id="example2" type="text" class="exampleTitle" name="exampleTitle" style="width:350px; margin-right:20px;" placeholder="2번 선택지 답을 입력하세요">
 																	<input type="hidden" class="exampleIdx" name="exampleIdx" value="2">
-																	<input type="radio" class="exampleOx ml-3" name="exampleOx" value="2">
+																	<input type="radio" class="exampleOx" name="exampleOx" value="2">
+																	<small id="example2Msg"></small>
 																</td>
 															</tr>
 															<tr>
 																<th>③</th>
 																<td>
-																	<input type="text" class="exampleTitle" name="exampleTitle" style="width:350px" placeholder="3번 선택지 답을 입력하세요">
+																	<input id="example3" type="text" class="exampleTitle" name="exampleTitle" style="width:350px; margin-right:20px;" placeholder="3번 선택지 답을 입력하세요">
 																	<input type="hidden" class="exampleIdx" name="exampleIdx" value="3">
-																	<input type="radio" class="exampleOx ml-3" name="exampleOx" value="3">
+																	<input type="radio" class="exampleOx" name="exampleOx" value="3">
+																	<small id="example3Msg"></small>
 																</td>
 															</tr>
 															<tr>
 																<th>④</th>
 																<td>
-																	<input type="text" class="exampleTitle" name="exampleTitle" style="width:350px" placeholder="4번 선택지 답을 입력하세요">
+																	<input id="example4" type="text" class="exampleTitle" name="exampleTitle" style="width:350px; margin-right:20px;" placeholder="4번 선택지 답을 입력하세요">
 																	<input type="hidden" class="exampleIdx" name="exampleIdx" value="4">
-																	<input type="radio" class="exampleOx ml-3" name="exampleOx" value="4">
+																	<input type="radio" class="exampleOx" name="exampleOx" value="4">
+																	<small id="example4Msg"></small>
 																</td>
 															</tr>
 														</table>
+														<small id="exampleOxMsg"></small>
 														<input type="hidden" name="testNo" value="${thisTest.testNo}">
 														<div class="text-center">
-															<button type="submit" class="btn btn-sm btn-outline-primary mt-3">등록</button>
+															<button id="addBtn" type="button" class="btn btn-sm btn-outline-primary mt-3">등록</button>
 														</div>
 													</form>
 												</div>
@@ -239,9 +320,9 @@
 																	<div style="font-weight:bold;">
 																		${q.questionIdx}. ${q.questionTitle}
 																	</div>
-																	<div>
-																		<a href="${pageContext.request.contextPath}/teacher/modifyQuestion?questionNo=${q.questionNo}&testNo=${thisTest.testNo}">수정</a>
-																		<a href="${pageContext.request.contextPath}/teacher/removeQuestion?questionNo=${q.questionNo}&testNo=${thisTest.testNo}">삭제</a>
+																	<div class="my-2 btn-group">
+																		<small><a href="${pageContext.request.contextPath}/teacher/modifyQuestion?questionNo=${q.questionNo}&testNo=${thisTest.testNo}" class="btn btn-sm btn-outline-dark"><i class="ti-marker-alt"></i></a></small>
+																		<small><a href="${pageContext.request.contextPath}/teacher/removeQuestion?questionNo=${q.questionNo}&testNo=${thisTest.testNo}" class="btn btn-sm btn-outline-danger"><i class="ti-trash"></i></a></small>
 																	</div>
 																</c:if>
 																<br>
@@ -269,10 +350,13 @@
 																</c:if>
 															</div>
 														</c:forEach>
-														<h5>=========답지===========</h5>
+														<c:if test="${answerList != '[]'}">
+															<h4 class="text-center">< 정답지 ></h4>
+														</c:if>
 														<c:forEach var="a" items="${answerList}">
-															<span>${a.questionIdx}) </span>
-															<span style="font-weight:bold; color:red;">${a.exampleIdx}</span>
+															<small class="text-dark">${a.questionIdx}) </small>&nbsp;
+															<big style="font-weight:bold; color:red;">${a.exampleIdx}</big>
+															&nbsp;&nbsp;&nbsp;
 														</c:forEach>
 													</div>
 												</div>

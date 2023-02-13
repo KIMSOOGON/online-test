@@ -23,6 +23,7 @@ public interface TeacherMapper {
 	int deleteExample(int questionNo);
 	int deleteQuestion(int questionNo);
 	int selectLastQuestionNo();
+	Integer selectTestOneLastQuestionNo(int testNo);
 	List<Map<String,Object>> selectExampleList(int testNo);
 	int insertExample(Example example);
 	int insertQuestion(Question question);

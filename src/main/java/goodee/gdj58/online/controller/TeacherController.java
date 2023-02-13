@@ -128,16 +128,22 @@ public class TeacherController {
 							, @RequestParam(value="testNo") int testNo) {
 		List<Map<String,Object>> list = teacherService.getExampleList(testNo);
 		List<Map<String,Object>> answerList = teacherService.getAnswerList(testNo);
+		log.debug("\u001B[31m"+"answerList : "+answerList);
 		Test thisTest = teacherService.thisTest(testNo);
 		int ttlQstCnt = list.size() / 4;
-		int lastQuestionNo = teacherService.getLastQuestionNo();
+		Integer latestQuestion = teacherService.getTestOneLastQuestionNo(testNo);
+		if(latestQuestion == null) {
+			latestQuestion = 0;
+		}
+		log.debug("\u001B[31m"+"latestQuestion : "+latestQuestion);
+		// int latestQuestionNo = (int)teacherService.getTestOneLastQuestionNo(testNo)+1;
 		// 문제갯수
 		log.debug("\u001B[31m"+"총 문제 수 : "+ttlQstCnt);
 		model.addAttribute("list", list);
 		model.addAttribute("answerList", answerList);
 		model.addAttribute("ttlQstCnt", ttlQstCnt);
 		model.addAttribute("thisTest", thisTest);
-		model.addAttribute("lastQuestionNo", lastQuestionNo);
+		model.addAttribute("latestQuestionNo", latestQuestion+1);
 		return "teacher/testOne";
 	}
 	

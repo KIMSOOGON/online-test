@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
+	<style>
 		small {
 			color:red;
 		}

@@ -54,6 +54,11 @@ public class TeacherService {
 		return teacherMapper.selectLastQuestionNo();
 	}
 	
+	// 해당회차의 마지막문제의 questionNo
+	public Integer getTestOneLastQuestionNo(int testNo) {
+		return teacherMapper.selectTestOneLastQuestionNo(testNo);
+	}
+	
 	// 해당회차시험 문제 목록 (해당회차 시험 문제 및 4지선다 확인)
 	public List<Map<String,Object>> getExampleList(int testNo) {
 		return teacherMapper.selectExampleList(testNo);

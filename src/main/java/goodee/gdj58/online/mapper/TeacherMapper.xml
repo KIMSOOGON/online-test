@@ -71,8 +71,19 @@
 		SELECT
 			question_no questionNo
 		FROM question
-		WHERE test_no = #{testNo}
 		ORDER BY question_no DESC
+		LIMIT 0,1
+	</select>
+	
+	<!-- 해당회차시험의 마지막문제번호 -->
+	<select id="selectTestOneLastQuestionNo"
+		parameterType="int"
+		resultType="Integer">
+		SELECT
+			question_idx questionIdx
+		FROM question
+		WHERE test_no = #{testNo}
+		ORDER BY question_idx DESC
 		LIMIT 0,1
 	</select>
 
