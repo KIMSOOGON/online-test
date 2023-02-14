@@ -131,7 +131,7 @@ public class StudentController {
 	
 	// 로그인 폼
 	@GetMapping("/loginStudent")
-	public String loginEmp(Model model
+	public String loginEmp(Model model, HttpSession session
 							, @RequestParam(value="returnMsg", defaultValue="") String returnMsg
 							, @RequestParam(value="failLoginStu",defaultValue="") String failLoginStu) { // 세션이 필요한 로직은 매개변수로 세션을 받아온다
 		log.debug("\u001B[31m"+"returnMsg : "+returnMsg);
@@ -141,6 +141,9 @@ public class StudentController {
 		if(!failLoginStu.equals("")) {
 			log.debug("\u001B[31m 로그인실패 : "+failLoginStu);
 			model.addAttribute("failLoginStu",failLoginStu);
+		}
+		if(session.getAttribute("loginEmp") != null || session.getAttribute("loginTeacher") != null) {
+			session.invalidate(); // 로그인 중첩 방지, 기존 로그인정보 자동로그아웃
 		}
 		return "student/loginStudent";
 	}

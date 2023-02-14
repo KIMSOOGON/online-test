@@ -27,7 +27,8 @@ public class TeacherLoginFilter implements Filter {
     		HttpSession session = req.getSession();
     		
     		// teacher항목 사용전 로그인부터
-    		if(session.getAttribute("loginTeacher") == null) {
+    		if((session.getAttribute("loginTeacher") == null)
+    				|| ((session.getAttribute("loginTeacher") != null) && (session.getAttribute("loginStudent") != null || session.getAttribute("loginEmp") != null))) {
     			String teacherMsg = "restricted access"; // return 문구
     			((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginTeacher?teacherMsg="+teacherMsg);
     			return;

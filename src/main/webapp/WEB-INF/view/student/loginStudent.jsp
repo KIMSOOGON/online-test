@@ -61,6 +61,13 @@
     </script>
 </head>
 <body themebg-pattern="theme1">		
+	<!-- 필터에 걸러져 온 경우 alert 출력 -->
+	<c:if test="${returnMsg != null}">
+		<script>
+			alert('학생로그인부터 해주세요.');
+		</script>
+	</c:if>
+	
 	<section class="login-block">
 		<!-- Container-fluid starts -->
         <div class="container">

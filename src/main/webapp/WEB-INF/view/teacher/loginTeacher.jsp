@@ -60,7 +60,14 @@
 		});
     </script>
 </head>
-<body themebg-pattern="theme1">		
+<body themebg-pattern="theme1">	
+	<!-- 필터에 걸러져 온 경우 alert 출력 -->
+	<c:if test="${teacherMsg != null}">
+		<script>
+			alert('권한이 없습니다. 강사로그인부터 해주세요.');
+		</script>
+	</c:if>
+		
 	<section class="login-block">
 		<!-- Container-fluid starts -->
         <div class="container">
