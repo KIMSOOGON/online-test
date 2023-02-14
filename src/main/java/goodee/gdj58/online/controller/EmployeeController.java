@@ -25,7 +25,13 @@ public class EmployeeController {
 	// ============================= 직원 로그인관련 ===============================
 	// pw수정
 	@GetMapping("/employee/modifyEmpPw")
-	public String modifyEmpPw() {
+	public String modifyEmpPw(Model model
+								, @RequestParam(value="wrongEmpPw",defaultValue="") String wrongEmpPw) {
+		// 기존 비밀번호를 다르게 입력하 경우
+		if(!wrongEmpPw.equals("")) {
+			log.debug("\u001B[31m 비밀번호수정실패 : "+wrongEmpPw);
+			model.addAttribute("wrongEmpPw",wrongEmpPw);
+		}
 		return "employee/modifyEmpPw";
 	}
 	@PostMapping("/employee/modifyEmpPw")
@@ -33,8 +39,16 @@ public class EmployeeController {
 							, @RequestParam(value="oldPw") String oldPw
 							, @RequestParam(value="newPw") String newPw) {
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		System.out.println(loginEmp.getEmpNo()+oldPw+newPw);
-		employeeService.updateEmployeePw(loginEmp.getEmpNo(), oldPw, newPw);
+		// System.out.println(loginEmp.getEmpNo()+oldPw+newPw);
+		int modifyEmpPw = employeeService.updateEmployeePw(loginEmp.getEmpNo(), oldPw, newPw);
+		if(modifyEmpPw != 1) {
+			// 변경실패
+			String wrongEmpPw = "wrongPw";
+			log.debug("\u001B[31m"+"비밀번호변경 실패"+wrongEmpPw);
+			return "redirect:/employee/modifyEmpPw?wrongEmpPw="+wrongEmpPw;
+		} else {
+			log.debug("\u001B[31m"+"비밀번호변경 성공");
+		}
 		return "redirect:/employee/empList";
 	}
 	// 로그인 폼

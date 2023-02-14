@@ -32,7 +32,7 @@ public class EmployeeService {
 		paramMap.put("empNo", empNo);
 		paramMap.put("oldPw", oldPw);
 		paramMap.put("newPw", newPw);
-		System.out.println(paramMap.get("newPw"));
+		// System.out.println(paramMap.get("newPw"));
 		return employeeMapper.updateEmployeePw(paramMap);
 	}
 	

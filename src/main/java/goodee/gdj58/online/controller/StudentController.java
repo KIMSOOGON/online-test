@@ -122,7 +122,13 @@ public class StudentController {
 	// ====================== 학생 관련 CRUD ========================
 	// pw수정
 	@GetMapping("/student/modifyStudentPw")
-	public String modifyStudentPw() {
+	public String modifyStudentPw(Model model
+								, @RequestParam(value="wrongStuPw",defaultValue="") String wrongStuPw) {
+		// 기존 비밀번호를 다르게 입력하 경우
+		if(!wrongStuPw.equals("")) {
+			log.debug("\u001B[31m 비밀번호수정실패 : "+wrongStuPw);
+			model.addAttribute("wrongStuPw",wrongStuPw);
+		}
 		return "student/modifyStudentPw";
 	}
 	@PostMapping("/student/modifyStudentPw")
@@ -130,8 +136,16 @@ public class StudentController {
 							, @RequestParam(value="oldPw") String oldPw
 							, @RequestParam(value="newPw") String newPw) {
 		Student loginStudent = (Student)session.getAttribute("loginStudent");
-		System.out.println(loginStudent.getStudentNo()+oldPw+newPw);
-		studentService.updateStudentPw(loginStudent.getStudentNo(), oldPw, newPw);
+		// System.out.println(loginStudent.getStudentNo()+oldPw+newPw);
+		int modifyStu = studentService.updateStudentPw(loginStudent.getStudentNo(), oldPw, newPw);
+		if(modifyStu != 1) {
+			// 변경실패
+			String wrongStuPw = "wrongPw";
+			log.debug("\u001B[31m"+"비밀번호변경 실패"+wrongStuPw);
+			return "redirect:/student/modifyStudentPw?wrongStuPw="+wrongStuPw;
+		} else {
+			log.debug("\u001B[31m"+"비밀번호변경 성공");
+		}
 		return "redirect:/Home";
 	}
 	

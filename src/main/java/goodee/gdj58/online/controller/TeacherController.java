@@ -213,7 +213,13 @@ public class TeacherController {
 	// ====================== 강사 관련 ========================
 	// pw수정
 	@GetMapping("/teacher/modifyTeacherPw")
-	public String modifyTeacherPw() {
+	public String modifyTeacherPw(Model model
+								, @RequestParam(value="wrongTeaPw",defaultValue="") String wrongTeaPw) {
+		// 기존 비밀번호를 다르게 입력하 경우
+		if(!wrongTeaPw.equals("")) {
+			log.debug("\u001B[31m 비밀번호수정실패 : "+wrongTeaPw);
+			model.addAttribute("wrongTeaPw",wrongTeaPw);
+		}
 		return "teacher/modifyTeacherPw";
 	}
 	@PostMapping("/teacher/modifyTeacherPw")
@@ -221,8 +227,16 @@ public class TeacherController {
 							, @RequestParam(value="oldPw") String oldPw
 							, @RequestParam(value="newPw") String newPw) {
 		Teacher loginTeacher = (Teacher)session.getAttribute("loginTeacher");
-		System.out.println(loginTeacher.getTeacherNo()+oldPw+newPw);
-		teacherService.updateTeacherPw(loginTeacher.getTeacherNo(), oldPw, newPw);
+		// System.out.println(loginTeacher.getTeacherNo()+oldPw+newPw);
+		int modifyTeaPw = teacherService.updateTeacherPw(loginTeacher.getTeacherNo(), oldPw, newPw);
+		if(modifyTeaPw != 1) {
+			// 변경실패
+			String wrongTeaPw = "wrongPw";
+			log.debug("\u001B[31m"+"비밀번호변경 실패"+wrongTeaPw);
+			return "redirect:/teacher/modifyTeacherPw?wrongTeaPw="+wrongTeaPw;
+		} else {
+			log.debug("\u001B[31m"+"비밀번호변경 성공");
+		}
 		return "redirect:/Home";
 	}
 	
