@@ -41,13 +41,13 @@ public class StudentService {
 	}
 	
 	// score매기기
-	public int getScorePaper(int testNo, int studentNo) {
+	public int getScorePaper(int testNo, int studentNo, int correctCnt) {
 		int ttlQuestionCnt = studentMapper.ttlQuestionCnt(testNo);
-		int ttlCorrectCnt = studentMapper.ttlCorrectCnt(testNo);
-		int myScore = (int)(((double)ttlCorrectCnt / (double)ttlQuestionCnt) * 100);
+		// int ttlCorrectCnt = studentMapper.ttlCorrectCnt(testNo);
+		int myScore = (int)(((double)correctCnt / (double)ttlQuestionCnt) * 100);
 		// 점수 -> 소수점이하는 버림
 		log.debug("\u001B[31m"+"총 문항 수 : "+ttlQuestionCnt);
-		log.debug("\u001B[31m"+"맞힌 문항 수 : "+ttlCorrectCnt);
+		log.debug("\u001B[31m"+"맞힌 문항 수 : "+correctCnt);
 		log.debug("\u001B[31m"+"내 점수 : "+myScore);
 		Score score = new Score();
 		score.setStudentNo(studentNo);

@@ -17,7 +17,7 @@
 		<if test="searchWord != null || searchWord != ''">
 			AND t.test_title LIKE CONCAT('%',#{searchWord},'%')
 		</if>
-		ORDER BY s.score_date DESC
+		ORDER BY s.score_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

@@ -18,8 +18,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap/css/bootstrap.min.css">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- themify icon -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/icon/themify-icons/themify-icons.css">
     <!-- font-awesome-n -->
@@ -189,17 +187,17 @@
 																		</script>
 																		<td>
 																			<div class="container">
-																				<button type="button" value="open" class="btn modal--open${t.testNo}">응시</button>
+																				<button type="button" value="open" class="btn btn-sm btn-dark modal--open${t.testNo}">응시</button>
 																			</div>
 																			<div class="modal${t.testNo}">
 																				<div class="screen">
 																					<div class="layerpop">
 																						<p class="layerpop__container">
-																							난이도 : ${t.testLevel}<br>
-																							20문항 / 제한시간 : ${t.testTimer}분<br>
-																							<a href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">문제풀기</a>
+																							<br>난이도 : ${t.testLevel}<br>
+																							${t.questionCnt}문항 / 제한시간 : ${t.testTimer}분<br><br>
+																							<a class="btn btn-sm btn-info" href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">문제풀기</a>
 																						</p>
-																						<button type="button" value="close" class="btn modal--close${t.testNo}">Close</button>
+																						<button type="button" value="close" class="btn btn-sm btn-danger modal--close${t.testNo}">Close</button>
 																					</div>
 																				</div>
 																			</div>

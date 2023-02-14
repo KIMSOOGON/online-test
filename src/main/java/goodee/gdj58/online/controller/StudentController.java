@@ -48,7 +48,7 @@ public class StudentController {
 		if(endPage > lastPage) {
 		endPage = lastPage;
 		}
-		
+		int beginRow = (currentPage-1)*rowPerPage;
 		List<Map<String,Object>> list = studentService.selectScoreList(studentNo, currentPage, rowPerPage, searchWord);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
@@ -58,6 +58,7 @@ public class StudentController {
 		model.addAttribute("ttlScoreCnt", ttlScoreCnt);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("beginRow", beginRow);
 		return "student/myScoreList";
 		}	
 	
@@ -75,6 +76,7 @@ public class StudentController {
 		// 답안지 제출 및 채점
 		int questionCnt = questionNo.length; // 문항 갯수
 		Paper[] paper = new Paper[questionCnt]; // 문항 갯수만큼의 Paper 배열선언
+		int correctCnt = 0; // 맞춘 정답 갯수 (for문으로 카운팅하기)
 		for(int i=0; i<questionCnt; i++) {
 			paper[i] = new Paper();
 			paper[i].setStudentNo(studentNo);
@@ -82,12 +84,16 @@ public class StudentController {
 			paper[i].setQuestionNo(questionNo[i]);
 			paper[i].setAnswer(answer[i]); // 제출한 답안
 			int correctAnswer = studentService.getQuestionOx(questionNo[i]); // 실제 문제의 정답
-			log.debug("\u001B[31m"+"corretAnswer: "+correctAnswer);
+			log.debug("\u001B[31m"+(i+1)+"번 문제 내가제출한 답: "+answer[i]);
+			log.debug("\u001B[31m"+(i+1)+"번 문제 corretAnswer(정답): "+correctAnswer);
 			if(correctAnswer == paper[i].getAnswer()) {
 				// 제출답안과 실제정답이 일치할 경우
 				paper[i].setAnswerOx("정답");
+				log.debug("\u001B[31m"+"정답입니다");
+				correctCnt = correctCnt + 1;
 			} else {
-				paper[i].setAnswerOx("오답"); 
+				paper[i].setAnswerOx("오답");
+				log.debug("\u001B[31m"+"오답입니다");
 			}
 			int addPaper = studentService.addPaper(paper[i]);
 			if(addPaper == 1) {
@@ -95,7 +101,7 @@ public class StudentController {
 			}
 		}
 		// 점수 통계내기
-		int getScorePaper = studentService.getScorePaper(testNo, studentNo);
+		int getScorePaper = studentService.getScorePaper(testNo, studentNo, correctCnt);
 		
 		return "redirect:/testList";
 	}
