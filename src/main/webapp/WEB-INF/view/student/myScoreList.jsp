@@ -135,7 +135,9 @@
 															<c:forEach var="s" items="${list}" varStatus="status">
 																<tr>
 																	<td>${status.count+beginRow}</td>
-																	<td>${s.testTitle}</td>
+																	<td>
+																		<a href="${pageContext.request.contextPath}/student/scoreOne?scoreNo=${s.scoreNo}">${s.testTitle}</a>
+																	</td>
 																	<td>${s.score}</td>
 																	<td>${s.scoreDate}</td>
 																</tr>

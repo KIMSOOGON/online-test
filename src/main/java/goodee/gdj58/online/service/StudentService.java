@@ -21,6 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	// ====================== 시험 관련 ========================
+	// scoreOne 채점결과 상세 확인
+	public List<Map<String,Object>> selectScoreOne(int scoreNo) {
+		
+		return studentMapper.selectScoreOne(scoreNo);
+	}
+	
 	// 내 score 조회
 	public List<Map<String,Object>> selectScoreList(int studentNo, int currentPage, int rowPerPage, String searchWord) {
 		int beginRow = (currentPage-1)*rowPerPage;
@@ -54,6 +60,27 @@ public class StudentService {
 		score.setTestNo(testNo);
 		score.setScore(myScore);
 		return studentMapper.insertScorePaper(score);
+	}
+	
+	// 깡통 score에 채점한 score저장하기
+	public int updateScore(int defaultScoreNo, int testNo, int correctCnt) {
+		int ttlQuestionCnt = studentMapper.ttlQuestionCnt(testNo);
+		// int ttlCorrectCnt = studentMapper.ttlCorrectCnt(testNo);
+		int myScore = (int)(((double)correctCnt / (double)ttlQuestionCnt) * 100);
+		// 점수 -> 소수점이하는 버림
+		log.debug("\u001B[31m"+"총 문항 수 : "+ttlQuestionCnt);
+		log.debug("\u001B[31m"+"맞힌 문항 수 : "+correctCnt);
+		log.debug("\u001B[31m"+"내 점수 : "+myScore);
+		Score score = new Score();
+		score.setScoreNo(defaultScoreNo);
+		score.setScore(myScore);
+		return studentMapper.updateScore(score);
+	}
+	
+	// 깡통 score 생성 scoreNo(auto_increment) 반환
+	public int selectScoreNo(Score score) {
+		
+		return studentMapper.insertScoreDefault(score);
 	}
 	
 	// 채점 (해당 문제의 정답 여부 확인)

@@ -7,6 +7,7 @@ public class Paper {
 	private int paperNo;
 	private int studentNo;
 	private int testNo;
+	private int ScoreNo;
 	private int questionNo;
 	private int answer;
 	private String answerOx;

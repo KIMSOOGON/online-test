@@ -3,12 +3,33 @@
 <mapper namespace="goodee.gdj58.online.mapper.StudentMapper">
 
 	<!-- ============ 시험관련 ================ -->
+	<!-- 응시한 시험 채점결과 상세 보기 -->
+	<select id="selectScoreOne"
+		resultType="java.util.Map"
+		parameterType="int">
+		SELECT
+			q.question_idx questionIdx
+			, q.question_title questionTitle
+			, e.example_idx exampleIdx
+			, e.example_title exampleTitle
+			, e.example_ox exampleOx
+			, p.answer answer
+			, p.answer_ox answerOx
+		FROM paper p
+		INNER JOIN question q
+		ON p.question_no = q.question_no
+		INNER JOIN example e
+		ON p.question_no = e.question_no
+		WHERE p.score_no = #{scoreNo}
+	</select>
+	
 	<!-- 내 score 조회하기 -->
 	<select id="selectScoreList" 
 		resultType="java.util.Map"
 		parameterType="java.util.Map">
 		SELECT
 			t.test_title testTitle
+			, s.score_no scoreNo
 			, s.score score
 			, s.score_date scoreDate
 		FROM score s
@@ -33,6 +54,31 @@
 			AND t.test_title LIKE CONCAT('%',#{searchWord},'%')
 		</if>
 	</select>
+	
+	<!-- 깡통 score에 채점한 점수 기입하기 -->
+	<update id="updateScore"
+		parameterType="goodee.gdj58.online.vo.Score">
+		UPDATE score 
+		SET score = #{score}
+		WHERE score_no = #{scoreNo}
+	</update>
+	
+	<!-- 깡통 score생성 + scoreNo 반환 (채점전 paper insert 이전) -->
+	<insert id="insertScoreDefault"
+		parameterType="goodee.gdj58.online.vo.Score"
+		useGeneratedKeys="true" keyProperty="scoreNo" keyColumn="score_no">
+		INSERT INTO score(
+			student_no
+			, test_no
+			, score
+			, score_date
+		) VALUES (
+			#{studentNo}
+			, #{testNo}
+			, '0'
+			, CURDATE()
+		)
+	</insert>
 	
 	<!-- score 저장하기 -->
 	<insert id="insertScorePaper"
@@ -83,12 +129,14 @@
 		INSERT INTO paper(
 			student_no
 			, test_no
+			, score_no
 			, question_no
 			, answer
 			, answer_ox
 		) VALUES (
 			#{studentNo}
 			, #{testNo}
+			, #{scoreNo}
 			, #{questionNo}
 			, #{answer}
 			, #{answerOx}

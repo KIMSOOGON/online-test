@@ -17,6 +17,7 @@ import goodee.gdj58.online.service.StudentService;
 import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Employee;
 import goodee.gdj58.online.vo.Paper;
+import goodee.gdj58.online.vo.Score;
 import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Test;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,16 @@ public class StudentController {
 	@Autowired IdService idService;
 	
 	// ====================== 시험 관련 ============================
+	// scoreOne 본인이 응시한 해당시험 채점결과 상세확인
+	@GetMapping("/student/scoreOne")
+	public String scoreOne(Model model
+							, @RequestParam(value="scoreNo") int scoreNo) {
+		List<Map<String,Object>> list = studentService.selectScoreOne(scoreNo);
+		model.addAttribute("list", list);
+		log.debug("\u001B[31m"+"list : "+list);
+		return "student/scoreOne";
+	}
+	
 	// 내 scoreList 출력 (score조회)
 	@GetMapping("/student/myScoreList")
 	public String myScoreList(HttpSession session, Model model
@@ -72,7 +83,11 @@ public class StudentController {
 		log.debug("\u001B[31m"+"questionIdx 1 : "+questionNo[1]);
 		log.debug("\u001B[31m"+"answer 0 : "+answer[0]);
 		log.debug("\u001B[31m"+"answer 1 : "+answer[1]);
-		
+		Score defaultScore = new Score();
+		defaultScore.setStudentNo(studentNo);
+		defaultScore.setTestNo(testNo);
+		int defaultScoreNo = studentService.selectScoreNo(defaultScore);
+		log.debug("\u001B[31m"+"defaultScoreNo : "+defaultScoreNo);
 		// 답안지 제출 및 채점
 		int questionCnt = questionNo.length; // 문항 갯수
 		Paper[] paper = new Paper[questionCnt]; // 문항 갯수만큼의 Paper 배열선언
@@ -81,6 +96,7 @@ public class StudentController {
 			paper[i] = new Paper();
 			paper[i].setStudentNo(studentNo);
 			paper[i].setTestNo(testNo);
+			paper[i].setScoreNo(defaultScoreNo);
 			paper[i].setQuestionNo(questionNo[i]);
 			paper[i].setAnswer(answer[i]); // 제출한 답안
 			int correctAnswer = studentService.getQuestionOx(questionNo[i]); // 실제 문제의 정답
@@ -100,8 +116,9 @@ public class StudentController {
 				log.debug("\u001B[31m"+testNo+"번 시험 "+questionNo[i]+"번 문항 답안제출 완료");
 			}
 		}
-		// 점수 통계내기
-		int getScorePaper = studentService.getScorePaper(testNo, studentNo, correctCnt);
+		// 점수 통계내기		
+		int updateScore = studentService.updateScore(defaultScoreNo, testNo, correctCnt);
+		//int getScorePaper = studentService.getScorePaper(testNo, studentNo, correctCnt);
 		
 		return "redirect:/testList";
 	}

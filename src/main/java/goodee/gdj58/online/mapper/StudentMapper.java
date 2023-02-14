@@ -12,8 +12,11 @@ import goodee.gdj58.online.vo.Student;
 @Mapper	
 public interface StudentMapper {
 	// 시험응시 및 답안확인
+	List<Map<String,Object>> selectScoreOne(int scoreNo);
 	List<Map<String,Object>> selectScoreList(Map<String, Object> paramMap); // 내 점수 조회
 	int ttlScoreCnt(Map<String,Object> paramMap); // 응시한 시험 갯수
+	int updateScore(Score score); // 깡통 score에 점수 업데이트 - 채점 후
+	int insertScoreDefault(Score score); // 깡통 score 데이터 생성 - 채점 전
 	int insertScorePaper(Score score); // 점수 저장
 	int ttlCorrectCnt(int testNo); // 맞춘 정답 갯수 (맞춘 문항의 갯수)
 	int ttlQuestionCnt(int testNo); // 해당시험 전체 문항 갯수
