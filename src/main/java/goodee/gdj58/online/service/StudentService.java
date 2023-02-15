@@ -21,6 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	// ====================== 시험 관련 ========================
+	// scoreOne 정보확인 
+	public Map<String,Object> checkScoreOne(int scoreNo) {
+		
+		return studentMapper.checkScoreOne(scoreNo);
+	}
+	
 	// scoreOne 채점결과 상세 확인
 	public List<Map<String,Object>> selectScoreOne(int scoreNo) {
 		
@@ -77,8 +83,13 @@ public class StudentService {
 		return studentMapper.updateScore(score);
 	}
 	
-	// 깡통 score 생성 scoreNo(auto_increment) 반환
-	public int selectScoreNo(Score score) {
+	// 깡통 score의 scoreNo select
+	public int getLatestScoreNo() {
+		return studentMapper.selectLatestScoreNo();
+	}
+	
+	// 깡통 score 생성
+	public int insertScoreDefault(Score score) {
 		
 		return studentMapper.insertScoreDefault(score);
 	}

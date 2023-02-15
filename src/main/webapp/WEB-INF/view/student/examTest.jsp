@@ -130,7 +130,7 @@
 							</div>
 						</div>
 						
-						<!-- 문제추가 -->
+						<!-- 시험응시 -->
                         <div class="pcoded-inner-content">
                             <!-- Main-body start -->
                             <div class="main-body">
@@ -138,7 +138,7 @@
                                     <!-- Page-body start -->
                                     <div class="page-body">
                                     
-                                        <!-- 문제추가하기 -->
+                                        <!-- 시험응시 -->
                                         <div class="card">
                                             <div class="card-header">
 												<h5>${thisTest.testTitle}</h5>

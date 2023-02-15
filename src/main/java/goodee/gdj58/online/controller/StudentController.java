@@ -35,7 +35,9 @@ public class StudentController {
 	public String scoreOne(Model model
 							, @RequestParam(value="scoreNo") int scoreNo) {
 		List<Map<String,Object>> list = studentService.selectScoreOne(scoreNo);
+		Map<String,Object> scoreOne = studentService.checkScoreOne(scoreNo);
 		model.addAttribute("list", list);
+		model.addAttribute("scoreOne", scoreOne);
 		log.debug("\u001B[31m"+"list : "+list);
 		return "student/scoreOne";
 	}
@@ -86,8 +88,12 @@ public class StudentController {
 		Score defaultScore = new Score();
 		defaultScore.setStudentNo(studentNo);
 		defaultScore.setTestNo(testNo);
-		int defaultScoreNo = studentService.selectScoreNo(defaultScore);
-		log.debug("\u001B[31m"+"defaultScoreNo : "+defaultScoreNo);
+		int insertDefaultScore = studentService.insertScoreDefault(defaultScore);
+		if(insertDefaultScore == 1) {
+			log.debug("\u001B[31m"+"defaultScore생성완료");
+		}
+		int scoreNo = studentService.getLatestScoreNo();
+		log.debug("\u001B[31m"+"scoreNo : "+scoreNo);
 		// 답안지 제출 및 채점
 		int questionCnt = questionNo.length; // 문항 갯수
 		Paper[] paper = new Paper[questionCnt]; // 문항 갯수만큼의 Paper 배열선언
@@ -96,7 +102,7 @@ public class StudentController {
 			paper[i] = new Paper();
 			paper[i].setStudentNo(studentNo);
 			paper[i].setTestNo(testNo);
-			paper[i].setScoreNo(defaultScoreNo);
+			paper[i].setScoreNo(scoreNo);
 			paper[i].setQuestionNo(questionNo[i]);
 			paper[i].setAnswer(answer[i]); // 제출한 답안
 			int correctAnswer = studentService.getQuestionOx(questionNo[i]); // 실제 문제의 정답
@@ -117,7 +123,7 @@ public class StudentController {
 			}
 		}
 		// 점수 통계내기		
-		int updateScore = studentService.updateScore(defaultScoreNo, testNo, correctCnt);
+		int updateScore = studentService.updateScore(scoreNo, testNo, correctCnt);
 		//int getScorePaper = studentService.getScorePaper(testNo, studentNo, correctCnt);
 		
 		return "redirect:/testList";

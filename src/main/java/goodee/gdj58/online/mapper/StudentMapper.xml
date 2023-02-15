@@ -23,7 +23,25 @@
 		WHERE p.score_no = #{scoreNo}
 	</select>
 	
-	<!-- 내 score 조회하기 -->
+	<!-- 내 score 조회하기 scoreOne -->
+	<select id="checkScoreOne"
+		parameterType="int"
+		resultType="java.util.Map">
+		SELECT
+			sc.score score
+			, sc.score_date scoreDate
+			, st.student_name studentName
+			, te.test_title testTitle
+			, te.test_level testLevel
+		FROM score sc
+		INNER JOIN student st
+		ON sc.student_no = st.student_no
+		INNER JOIN test te
+		ON sc.test_no = te.test_no
+		WHERE sc.score_no = #{scoreNo}
+	</select>
+	
+	<!-- 내 score 조회하기 제출답안지 채점확인 -->
 	<select id="selectScoreList" 
 		resultType="java.util.Map"
 		parameterType="java.util.Map">
@@ -63,10 +81,18 @@
 		WHERE score_no = #{scoreNo}
 	</update>
 	
-	<!-- 깡통 score생성 + scoreNo 반환 (채점전 paper insert 이전) -->
+	<!-- 깡통 score의 scoreNo select -->
+	<select id="selectLatestScoreNo"
+		resultType="int">
+		SELECT score_no
+		FROM score
+		ORDER BY score_no DESC
+		LIMIT 0,1
+	</select>
+	
+	<!-- 깡통 score생성 (채점전 paper insert 이전) -->
 	<insert id="insertScoreDefault"
-		parameterType="goodee.gdj58.online.vo.Score"
-		useGeneratedKeys="true" keyProperty="scoreNo" keyColumn="score_no">
+		parameterType="goodee.gdj58.online.vo.Score">
 		INSERT INTO score(
 			student_no
 			, test_no
