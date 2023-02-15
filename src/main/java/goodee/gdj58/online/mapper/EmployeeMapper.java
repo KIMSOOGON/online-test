@@ -16,6 +16,9 @@ public interface EmployeeMapper {
 	// --> 가독성이 떨어지므로 쿼리를 분리할 예정 (mybatis xml)
 	// @Select("")
 	
+	// home화면에 구현할 통계치
+	Map<String,Object> selectTtlCntAll();
+	
 	// 사원 CRUD + list
 	int updateEmployeePw(Map<String,Object> paramMap);
 	Employee login(Employee employee);

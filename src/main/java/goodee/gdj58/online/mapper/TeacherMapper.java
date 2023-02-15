@@ -13,7 +13,8 @@ import goodee.gdj58.online.vo.Test;
 @Mapper	
 public interface TeacherMapper {
 	
-
+	
+	
 	// Question 및 Example CRUD + LIST
 	List<Map<String,Object>> selectAnswerList(int testNo);
 	int modifyExample(Example example);

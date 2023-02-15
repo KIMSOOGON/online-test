@@ -1,6 +1,7 @@
 package goodee.gdj58.online.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import goodee.gdj58.online.service.EmployeeService;
 import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Test;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class HomeController {
 	@Autowired TeacherService teacherService;
-	
+	@Autowired EmployeeService employeeService;
 	// 홈화면
 	@GetMapping("/Home")
 	public String home(Model model
@@ -28,7 +30,10 @@ public class HomeController {
 			model.addAttribute("restrictedMsg", restrictedMsg);
 		}
 		List<Test> list = teacherService.getLatestTestList();
+		Map<String,Object> map = employeeService.getTotalCntAll();
 		model.addAttribute("list",list);
+		model.addAttribute("map",map);
+		
 		return "/home";
 	}
 	

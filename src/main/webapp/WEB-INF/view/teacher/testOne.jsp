@@ -314,7 +314,7 @@
 															<div>
 																<!-- 문제 -->
 																<c:if test="${q.exampleIdx == 1}">
-																	<div style="font-weight:bold;">
+																	<div style="font-weight:bold; white-space:pre-wrap">
 																		${q.questionIdx}. ${q.questionTitle}
 																	</div>
 																	<div class="my-2 btn-group">

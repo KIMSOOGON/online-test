@@ -25,6 +25,11 @@ public class EmployeeService {
 	@Autowired // bin스캔 -> 강제주입 (dependency injection)
 	private EmployeeMapper employeeMapper;
 	
+	// 통계
+	public Map<String,Object> getTotalCntAll() {
+		return employeeMapper.selectTtlCntAll();
+	}
+	
 	// ====================== 사원 관련 =========================
 	// 비밀번호수정
 	public int updateEmployeePw(int empNo, String oldPw, String newPw) {

@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
-	<title>All EXAM HERE</title>
+	<title>VVIP NO.1 Confidential Test in the World</title>
 </head>
 <body>
 	<!-- 필터에 걸러져 온 경우 alert 출력 -->
@@ -61,8 +61,8 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">(VVIP) 1급기밀 문제지 저장소</h5>
-                                            <p class="m-b-0">엄선된 회원들만 문제지를 풀 수 있습니다.
+                                            <h5 class="m-b-10">VVIP NO.1 Confidential Test in the World</h5>
+                                            <p class="m-b-0">개발자 김수곤이 만든 LMS시스템 사이트입니다. 각종 모의고사 및 기출문제를 등록 및 응시 가능합니다.
                                             </p>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@
                                                                         <i class="far fa-user text-c-purple f-24"></i>
                                                                     </div>
                                                                     <div class="col-8 p-l-0">
-                                                                        <h5>10K</h5>
+                                                                        <h5>${map.ttlCntTeacher}</h5>
                                                                         <p class="text-muted m-b-0">강사</p>
                                                                     </div>
                                                                 </div>
@@ -110,7 +110,7 @@
                                                                         <i class="far fa-user text-c-purple f-24"></i>
                                                                     </div>
                                                                     <div class="col-8 p-l-0">
-                                                                        <h5>100%</h5>
+                                                                        <h5>${map.ttlCntStudent}</h5>
                                                                         <p class="text-muted m-b-0">학생</p>
                                                                     </div>
                                                                 </div>
@@ -123,7 +123,7 @@
                                                                         <i class="far fa-file-alt text-c-red f-24"></i>
                                                                     </div>
                                                                     <div class="col-8 p-l-0">
-                                                                        <h5>2000+</h5>
+                                                                        <h5>${map.ttlCntTest}</h5>
                                                                         <p class="text-muted m-b-0">등록된 시험</p>
                                                                     </div>
                                                                 </div>
@@ -134,8 +134,8 @@
                                                                         <i class="far fa-envelope-open text-c-blue f-24"></i>
                                                                     </div>
                                                                     <div class="col-8 p-l-0">
-                                                                        <h5>120</h5>
-                                                                        <p class="text-muted m-b-0">Mails</p>
+                                                                        <h5>${map.ttlCntScore}</h5>
+                                                                        <p class="text-muted m-b-0">응시한 횟수</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -205,8 +205,8 @@
                                                                 <i class="fas fa-star mat-icon f-24"></i>
                                                             </div>
                                                             <div class="col-9 cst-cont">
-                                                                <h5>4000+</h5>
-                                                                <p class="m-b-0">평균 점수</p>
+                                                                <h5>${map.ttlAvgScore}</h5>
+                                                                <p class="m-b-0">응시생 평균 점수</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -218,8 +218,8 @@
                                                                 <i class="fas fa-trophy mat-icon f-24"></i>
                                                             </div>
                                                             <div class="col-9 cst-cont">
-                                                                <h5>17</h5>
-                                                                <p class="m-b-0">응시한 시험 수</p>
+                                                                <h5>${map.ttlSumScore}</h5>
+                                                                <p class="m-b-0">누적 총 점수</p>
                                                             </div>
                                                         </div>
                                                     </div>

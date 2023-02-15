@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.EmployeeMapper">
 
+	<!-- 홈화면에 구현할 통계치 -->
+	<select id="selectTtlCntAll"
+		resultType="java.util.Map">
+		SELECT
+			(SELECT COUNT(*)
+			FROM teacher) ttlCntTeacher
+			, (SELECT COUNT(*)
+				FROM student) ttlCntStudent
+			, (SELECT COUNT(*)
+				FROM test) ttlCntTest
+			, (SELECT COUNT(*)
+				FROM score) ttlCntScore
+			, (SELECT SUM(score)
+				FROM score) ttlSumScore
+			, (SELECT AVG(score)
+				FROM score) ttlAvgScore
+	</select>
+
 	<!-- ============ 사원 CRUD 목록 ============ -->
 	<!-- 비밀번호수정 -->
 	<update id="updateEmployeePw"
