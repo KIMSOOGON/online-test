@@ -76,7 +76,7 @@
 								<div class="row align-items-center">
 									<div class="col-md-8">
 										<div class="page-header-title">
-											<h5 class="m-b-10">강사 목록</h5>
+											<h5 class="m-b-10">시험 등록</h5>
 											<p class="m-b-0">
 											</p>
 										</div>

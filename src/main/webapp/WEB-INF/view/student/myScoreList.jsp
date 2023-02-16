@@ -52,7 +52,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">${loginStudent.studentName}님의 응시한 시험 및 채점결과 목록</h5>
+                                            <h5 class="m-b-10">${loginStudent.studentName}님의 응시한 시험의 성적/석차/답안지 확인</h5>
                                             <p class="m-b-0">
                                             	
                                             </p>
