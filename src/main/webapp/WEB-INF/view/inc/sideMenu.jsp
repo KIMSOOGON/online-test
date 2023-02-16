@@ -7,7 +7,7 @@
            <div class="main-menu-header">
                <img class="img-80 img-radius" src="${pageContext.request.contextPath}/resources/images/김수곤.jpg" alt="User-Profile-Image">
                <div class="user-details">
-                   <span id="more-details">developer KIM SOO GON<i class="fa fa-caret-down"></i></span>
+                   <span id="more-details">개발자 KIM SOO GON<i class="fa fa-caret-down"></i></span>
                </div>
            </div>
            <div class="main-menu-content">
@@ -137,7 +137,7 @@
            <li class="">
                <a href="${pageContext.request.contextPath}/student/myScoreList" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-bar-chart-alt"></i><b>C</b></span>
-                    <span class="pcoded-mtext">내 점수 조회</span>
+                    <span class="pcoded-mtext">내 성적</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>

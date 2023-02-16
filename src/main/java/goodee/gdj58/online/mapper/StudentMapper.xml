@@ -41,7 +41,7 @@
 		WHERE sc.score_no = #{scoreNo}
 	</select>
 	
-	<!-- 내 score 조회하기 제출답안지 채점확인 -->
+	<!-- 내 score 조회하기 + 석차 / 제출답안지 채점확인 -->
 	<select id="selectScoreList" 
 		resultType="java.util.Map"
 		parameterType="java.util.Map">
@@ -50,13 +50,35 @@
 			, s.score_no scoreNo
 			, s.score score
 			, s.score_date scoreDate
-		FROM score s
+			, s.ranking ranking
+			, s.ttlStudent
+		FROM
+			(SELECT
+				score_no
+				, student_no
+				, test_no
+				, score
+				, score_date
+				, (SELECT COUNT(*) 
+					FROM score 
+					WHERE test_no = s.test_no) AS ttlStudent
+				, (SELECT COUNT(*) 
+					FROM score 
+					WHERE test_no = s.test_no AND score > s.score) + 1 AS ranking
+			FROM 
+				score s
+			WHERE 
+				s.student_no = #{studentNo}
+				AND s.test_no IN (SELECT test_no FROM score WHERE student_no = #{studentNo})
+			) s
 		INNER JOIN test t ON s.test_no = t.test_no
-		WHERE s.student_no = #{studentNo}
-		<if test="searchWord != null || searchWord != ''">
-			AND t.test_title LIKE CONCAT('%',#{searchWord},'%')
-		</if>
-		ORDER BY s.score_no DESC
+		INNER JOIN student st ON s.student_no = st.student_no
+		<where>
+			<if test="searchWord != null || searchWord != ''">
+				AND t.test_title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+		ORDER BY s.score_date DESC, s.score_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

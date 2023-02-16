@@ -83,21 +83,24 @@
 						        <div class="row m-b-20">
 						            <div class="col-md-12">
 						                <h3 class="text-center">L O G - I N</h3>
-						                <p class="text-center text-success">Student</p>
+						                <p class="text-center text-success">학생 로그인
+						                	<a style="float:left; background-color:#FFDEA9;" href="${pageContext.request.contextPath}/loginEmp" class="btn btn-sm">직원</a>
+						                	<a style="float:right; background-color:#FFDEA9;" href="${pageContext.request.contextPath}/loginTeacher" class="btn btn-sm">강사</a>
+						                </p>
 						            </div>
 						        </div>		
 						        <!-- 아이디 -->				        
 						        <div class="form-group form-primary">
-						            <input id="id" type="text" name="studentId" class="form-control">
+						            <input id="id" type="text" name="studentId" class="form-control" value="s2" placeholder="Your Id">
 						            <span class="form-bar"></span>
-						            <label class="float-label">Your Id</label>
+						            <label class="float-label"></label>
 						            <small id="idMsg"></small>
 						        </div>
 						        <!-- 패스워드 -->
 						        <div class="form-group form-primary">
-						            <input id="pw" type="password" name="studentPw" class="form-control">
+						            <input id="pw" type="password" name="studentPw" class="form-control" value="1234" placeholder="Password">
 						            <span class="form-bar"></span>
-						            <label class="float-label">Password</label>
+						            <label class="float-label"></label>
 						            <small id="pwMsg"></small>
 						        </div>
 						        <!-- 로그인 실패시 문구출력 -->

@@ -81,7 +81,7 @@
                                         <!-- Hover table card start -->
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>응시한 시험 점수확인</h5>
+                                                <h5>내 성적 목록</h5>
 												<!-- 시험검색 -->
 												
 												<form class="mt-2 text-center form-material" method="get" action="${pageContext.request.contextPath}/student/myScoreList">
@@ -127,7 +127,8 @@
 															<tr>
 																<th>No.</th>
 																<th>시험제목</th>
-																<th>점수</th>
+																<th>성적</th>
+																<th>석차</th>
 																<th>응시날짜</th>
 																<th>답안지 확인</th>
 															</tr>
@@ -139,7 +140,8 @@
 																	<td>
 																		<a href="${pageContext.request.contextPath}/student/scoreOne?scoreNo=${s.scoreNo}">${s.testTitle}</a>
 																	</td>
-																	<td>${s.score}</td>
+																	<td class="text-danger">${s.score}</td>
+																	<td><span style="font-weight:bold;">${s.ranking}</span> / ${s.ttlStudent}</td>
 																	<td>${s.scoreDate}</td>
 																	<td><a href="${pageContext.request.contextPath}/student/scoreOne?scoreNo=${s.scoreNo}" class="btn btn-sm btn-info">답안지 확인</a></td>
 																</tr>
