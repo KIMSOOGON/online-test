@@ -129,6 +129,7 @@
 																<th>시험제목</th>
 																<th>점수</th>
 																<th>응시날짜</th>
+																<th>답안지 확인</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -140,6 +141,7 @@
 																	</td>
 																	<td>${s.score}</td>
 																	<td>${s.scoreDate}</td>
+																	<td><a href="${pageContext.request.contextPath}/student/scoreOne?scoreNo=${s.scoreNo}" class="btn btn-sm btn-info">답안지 확인</a></td>
 																</tr>
 															</c:forEach>
 														</tbody>

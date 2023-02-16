@@ -156,7 +156,7 @@
 			, test_timer
 		) VALUES (
 			#{testTitle}
-			, CURDATE()
+			, #{testDate}
 			, #{testLevel}
 			, #{testTimer}
 		)
@@ -167,6 +167,7 @@
 		parameterType="goodee.gdj58.online.vo.Test">
 		UPDATE test
 		SET test_title = #{testTitle}
+			, test_date = #{testDate}
 			, test_level = #{testLevel}
 			, test_Timer = #{testTimer}
 		WHERE test_no = #{testNo}
@@ -229,6 +230,41 @@
 		ORDER BY test_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	
+	<!-- TEST LIST (student 로그인시) -->
+	<select id="selectTestListByStudentNo" 
+		resultType="java.util.Map" 
+		parameterType="java.util.Map">
+		SELECT
+			DISTINCT t.test_no testNo
+			, t.test_title testTitle
+			, t.test_date testDate
+			, t.test_level testLevel
+			, t.test_timer testTimer
+			, (SELECT COUNT(*) FROM question WHERE test_no = testNo) questionCnt
+			, s.score score
+			, s.score_no scoreNo
+			, CASE
+				WHEN s.score_no IS NULL THEN '응시가능'
+				ELSE '응시완료'
+			END AS examStatus
+		FROM test t
+		LEFT JOIN score s
+			ON t.test_no = s.test_no
+			AND s.student_no = #{studentNo}
+		<where> <!-- 검색값이 있을 경우 where태그 추가 -->
+			<if test="searchWord != null || searchWord != ''">
+				test_title LIKE CONCAT('%',#{searchWord},'%')
+				<if test="testLevel != ''">
+				AND test_level = #{testLevel}
+				</if>
+			</if>
+		</where>
+		ORDER BY t.test_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	
 	
 	<!-- ============ 강사 CRUD 목록 (직원이 이용가능) ============ -->
 	<!-- 비밀번호수정 -->

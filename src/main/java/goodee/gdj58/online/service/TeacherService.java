@@ -114,7 +114,7 @@ public class TeacherService {
 	}
 	
 	// 시험 목록
-	public List<Test> getTestList(int currentPage, int rowPerPage, String searchWord, String testLevel) {
+	public List<Map<String,Object>> getTestList(int currentPage, int rowPerPage, String searchWord, String testLevel) {
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
@@ -122,6 +122,18 @@ public class TeacherService {
 		paramMap.put("searchWord", searchWord);
 		paramMap.put("testLevel", testLevel);
 		return teacherMapper.selectTestList(paramMap);
+	}
+	
+	// 시험 목록 (studentSession)
+	public List<Map<String, Object>> getTestListByStudentNo(int currentPage, int rowPerPage, String searchWord, String testLevel, int studentNo) {
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
+		paramMap.put("testLevel", testLevel);
+		paramMap.put("studentNo", studentNo);
+		return teacherMapper.selectTestListByStudentNo(paramMap);
 	}
 	
 	

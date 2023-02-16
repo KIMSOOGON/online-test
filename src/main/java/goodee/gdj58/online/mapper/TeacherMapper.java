@@ -36,7 +36,8 @@ public interface TeacherMapper {
 	int deleteTest(int testNo);
 	Integer ttlTestCnt(Map<String, Object> paramMap);
 	List<Test> selectLatestTestList(); // 최근 게시된 시험 5개만 select
-	List<Test> selectTestList(Map<String, Object> paramMap);
+	List<Map<String,Object>> selectTestList(Map<String, Object> paramMap);
+	List<Map<String,Object>> selectTestListByStudentNo(Map<String,Object> paramMap);
 	
 	
 	// Teacher CRUD + list

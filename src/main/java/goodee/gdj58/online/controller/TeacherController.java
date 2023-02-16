@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import goodee.gdj58.online.mapper.TeacherMapper;
 import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.TeacherService;
-import goodee.gdj58.online.vo.Employee;
 import goodee.gdj58.online.vo.Example;
 import goodee.gdj58.online.vo.Question;
+import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Teacher;
 import goodee.gdj58.online.vo.Test;
 import lombok.extern.slf4j.Slf4j;
@@ -178,7 +177,7 @@ public class TeacherController {
 	
 	// 시험 목록
 	@GetMapping("/testList")
-	public String testList(Model model
+	public String testList(Model model, HttpSession session
 								, @RequestParam(value="currentPage", defaultValue="1") int currentPage
 								, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
 								, @RequestParam(value="searchWord", defaultValue="") String searchWord
@@ -197,7 +196,17 @@ public class TeacherController {
 		if(endPage > lastPage) {
 			endPage = lastPage;
 		}
-		List<Test> list = teacherService.getTestList(currentPage, rowPerPage, searchWord, testLevel);
+		
+		List<Map<String,Object>> list = null;
+		if(session.getAttribute("loginStudent") != null) {
+			Student loginStudent = (Student)session.getAttribute("loginStudent");
+			int studentNo = loginStudent.getStudentNo();
+			log.debug("\u001B[31m"+loginStudent.getStudentName()+"학생의 testList페이지입니다");
+			list = teacherService.getTestListByStudentNo(currentPage, rowPerPage, searchWord, testLevel, studentNo);
+		} else {
+			list = teacherService.getTestList(currentPage, rowPerPage, searchWord, testLevel);
+		}
+		
 		model.addAttribute("list", list);
 		model.addAttribute("thisTestLevel", testLevel);
 		model.addAttribute("currentPage", currentPage);

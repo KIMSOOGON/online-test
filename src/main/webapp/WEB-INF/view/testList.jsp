@@ -187,20 +187,42 @@
 																		</script>
 																		<td>
 																			<div class="container">
-																				<button type="button" value="open" class="btn btn-sm btn-dark modal--open${t.testNo}">응시</button>
-																			</div>
-																			<div class="modal${t.testNo}">
-																				<div class="screen">
-																					<div class="layerpop">
-																						<p class="layerpop__container">
-																							<br>난이도 : ${t.testLevel}<br>
-																							${t.questionCnt}문항 / 제한시간 : ${t.testTimer}분<br><br>
-																							<a class="btn btn-sm btn-info" href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">문제풀기</a>
-																						</p>
-																						<button type="button" value="close" class="btn btn-sm btn-danger modal--close${t.testNo}">Close</button>
+																			
+																				<!-- 응시완료한 시험일 경우 -->
+																				<c:if test="${t.examStatus eq '응시완료'}">
+																					<button type="button" value="open" class="btn btn-sm btn-secondary modal--open${t.testNo}">${t.examStatus}</button>
+																					<div class="modal${t.testNo}">
+																						<div class="screen">
+																							<div class="layerpop">
+																								<p class="layerpop__container">
+																									<br>난이도 : ${t.testLevel} / <big class="ml-3">내 점수 : <span style="color:red;">${t.score}</span></big><br>
+																									${t.questionCnt}문항 / 제한시간 : ${t.testTimer}분<br><br>
+																									<a href="${pageContext.request.contextPath}/student/scoreOne?scoreNo=${t.scoreNo}" class="btn btn-sm" style="background-color:orange;">결과 확인</a>
+																								</p>
+																								<button type="button" value="close" class="btn btn-sm btn-danger modal--close${t.testNo}">Close</button>
+																							</div>
+																						</div>
 																					</div>
-																				</div>
+																				</c:if>
+																				
+																				<!-- 응시가능한 시험일 경우 -->
+																				<c:if test="${t.examStatus eq '응시가능'}">
+																					<button type="button" value="open" class="btn btn-sm btn-primary modal--open${t.testNo}">${t.examStatus}</button>
+																					<div class="modal${t.testNo}">
+																						<div class="screen">
+																							<div class="layerpop">
+																								<p class="layerpop__container">
+																									<br>난이도 : ${t.testLevel}<br>
+																									${t.questionCnt}문항 / 제한시간 : ${t.testTimer}분<br><br>
+																									<a class="btn btn-sm btn-info" href="${pageContext.request.contextPath}/student/examTest?testNo=${t.testNo}">문제풀기</a>
+																								</p>
+																								<button type="button" value="close" class="btn btn-sm btn-danger modal--close${t.testNo}">Close</button>
+																							</div>
+																						</div>
+																					</div>
+																				</c:if>
 																			</div>
+																			
 																		</td>
 																	</c:if>
 																	<c:if test="${loginTeacher != null && loginStudent == null}">

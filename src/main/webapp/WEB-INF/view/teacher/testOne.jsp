@@ -157,6 +157,10 @@
 													<input type="hidden" name="testNo" value="${thisTest.testNo}">
 													<input type="text" name="testTitle" value="${thisTest.testTitle}" class="mt-4">
 													<br>
+													<div>
+														출제날짜
+														<input type="date" name="testDate" value="${thisTest.testDate}" class="my-2 ml-2">
+													</div>
 												 	<div>
 														난이도
 														<select id="testLevel" name="testLevel" class="mt-1 ml-2">

@@ -117,6 +117,10 @@
 											</div>
                                             <div class="card-block table-border-style">
                                                 <form id="addForm" action="${pageContext.request.contextPath}/teacher/addTest" method="post">
+                                                	<div>
+                                                		출제날짜
+                                                		<input type="date" name="testDate" class="my-2 ml-2">
+                                                	</div>
 													<div>
 														난이도
 														<select name="testLevel" class="my-2 ml-2">
