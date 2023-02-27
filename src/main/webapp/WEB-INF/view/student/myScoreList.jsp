@@ -28,8 +28,13 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 
+	<!-- chart -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
+	
+	
 	<div id="pcoded" class="pcoded">
 		<div class="pcoded-overlay-box"></div>
 		<div class="pcoded-container navbar-wrapper">
@@ -178,6 +183,92 @@
 										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/student/myScoreList?currentPage=${lastPage}&rowPerPage=${rowPerPage}"><i class="ti-angle-double-right"></i></a></li>
 									</ul>
 								</nav>
+							</div>
+						</div>
+							
+						  	<!-- Page-header end -->
+	                        <div class="pcoded-inner-content">
+	                            <!-- Main-body start -->
+	                            <div class="main-body">
+	                                <div class="page-wrapper">
+	                                    <!-- Page-body start -->
+	                                    <div class="page-body">
+	                                        <!-- Hover table card start -->
+	                                        <div class="card">
+	                                            <div class="card-header">
+	                                                <h5>내 성적 (차트)</h5>
+	                                                
+	                                                <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                        <li><i class="fa fa-minus minimize-card"></i></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                	<!-- 응시한 시험 및 점수 출력 -->
+													<canvas id="myChart" style="width:100%;max-width:800px"></canvas>
+													<!-- 차트 모델값을 가져오는 코드 -->
+													<script>
+														// 모델 데이터 가져온 후에 아래 차트가 그려져야 한다 -> 동기로 처리해야 한다
+														// async값을 false로 변경  참고 => https://api.jquery.com/jQuery.ajax/
+														let xModel = []; // 키배열
+														let yModel = []; // 합배열
+														let barColorsModel = ['#FF000','#00FF00','#0000FF','#AB4297','#883259','#CACC55','#AABBCC','#ABCDEF','#987654','#518393','#777799','#D3F2A8'];
+														$.ajax({
+															async : false
+															, url : '/online-test/scoreChart'
+															, type : 'get'
+															, success : function(model) { // model : /restapi/monthData 백엔드에서 객체로 반환 -> 변환이 필요
+																for(let attr in model) { // attr에는 키(속성)값 {1:500, 2:400}
+																	xModel.push(model[attr].scoreDate);
+																	yModel.push(model[attr].score);
+																}
+															}
+														});
+													</script>
+													
+													<!-- 차트를 그리는 코드 -->
+													<script>
+													var xValues = xModel;
+													var yValues = yModel;
+													var barColors = barColorsModel;
+													
+													new Chart("myChart", {
+													  type: "bar",
+													  data: {
+													    labels: xValues,
+													    datasets: [{
+													      backgroundColor: barColors,
+													      data: yValues
+													    }]
+													  },
+													  options: {
+														  scales: {
+															  yAxes: [{
+																  ticks: {
+																	  min:0,
+																	  max:100
+																  }
+															  }]
+														  },
+													    legend: {display: false},
+													    title: {
+													      display: true,
+													      text: "성적"
+													    }
+													  }
+													});
+													</script>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>								
 							</div>
 						</div>
 					</div>
