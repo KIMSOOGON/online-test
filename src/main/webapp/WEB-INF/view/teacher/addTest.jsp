@@ -84,9 +84,9 @@
 									<div class="col-md-4">
 										<ul class="breadcrumb">
 											<li class="breadcrumb-item">
-												<a href="index.html"> <i class="fa fa-home"></i> </a>
+												<a href="${pageContext.request.contextPath}/testList"> <i class="ti-files"></i> </a>
 											</li>
-											<li class="breadcrumb-item"><a href="#!">Home</a>
+											<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/testList">testList</a>
 											</li>
 										</ul>
 									</div>

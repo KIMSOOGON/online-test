@@ -218,7 +218,7 @@
 														// async값을 false로 변경  참고 => https://api.jquery.com/jQuery.ajax/
 														let xModel = []; // 키배열
 														let yModel = []; // 합배열
-														let barColorsModel = ['#FF000','#00FF00','#0000FF','#AB4297','#883259','#CACC55','#AABBCC','#ABCDEF','#987654','#518393','#777799','#D3F2A8'];
+														let barColorsModel = ['#00FF00','#0000FF','#AB4297','#883259','#CACC55','#AABBCC','#ABCDEF','#987654','#518393','#777799','#D3F2A8'];
 														$.ajax({
 															async : false
 															, url : '/online-test/scoreChart'

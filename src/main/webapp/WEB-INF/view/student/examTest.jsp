@@ -163,7 +163,7 @@
 																<div>
 																	<!-- 문제 -->
 																	<c:if test="${q.exampleIdx == 1}">
-																		<div style="font-weight:bold; font-size:18px;">
+																		<div style="font-weight:bold; font-size:18px; white-space:pre-line;">
 																			${q.questionIdx}. ${q.questionTitle}
 																		</div>
 																		<!-- 문제 고유번호(questionNo) + 선택한 답안(answer) 히든처리하여 컨트롤러로 넘겨주기  -->
